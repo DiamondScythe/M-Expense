@@ -38,6 +38,9 @@ class EnterDataFragment : Fragment() {
             var inputLocation = binding?.EditTextLocation?.text.toString()
             var inputTime = binding?.EditTextTime?.text.toString()
             database.child("Trip").child(inputId.toString()).setValue(Trip(inputLocation, inputTime))
+            binding?.EditTextId?.setText("")
+            binding?.EditTextTime?.setText("")
+            binding?.EditTextLocation?.setText("")
         }
     }
 
