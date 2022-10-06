@@ -12,10 +12,18 @@
         <action
             android:id="@+id/action_selectionFragment_to_enterDataFragment"
             app:destination="@id/enterDataFragment" />
+        <action
+            android:id="@+id/action_selectionFragment_to_viewDataFragment"
+            app:destination="@id/viewDataFragment" />
     </fragment>
     <fragment
         android:id="@+id/enterDataFragment"
         android:name="com.example.mexpense.EnterDataFragment"
         android:label="fragment_enter_data"
         tools:layout="@layout/fragment_enter_data" />
+    <fragment
+        android:id="@+id/viewDataFragment"
+        android:name="com.example.mexpense.ViewDataFragment"
+        android:label="fragment_view_data"
+        tools:layout="@layout/fragment_view_data" />
 </navigation>

@@ -27,21 +27,21 @@ class EnterDataFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         binding?.apply{
             binding?.ButtonEnter?.setOnClickListener{
-                uploadData()
+//                uploadData()
             }
         }
     }
 
-    fun uploadData(){
-        binding?.apply{
-            var inputId = binding?.EditTextId?.text.toString().toInt()
-            var inputLocation = binding?.EditTextLocation?.text.toString()
-            var inputTime = binding?.EditTextTime?.text.toString()
-            database.child("Trip").child(inputId.toString()).setValue(Trip(inputLocation, inputTime))
-            binding?.EditTextId?.setText("")
-            binding?.EditTextTime?.setText("")
-            binding?.EditTextLocation?.setText("")
-        }
-    }
+//    fun uploadData(){
+//        binding?.apply{
+//            var inputId = binding?.EditTextId?.text.toString().toInt()
+//            var inputLocation = binding?.EditTextLocation?.text.toString()
+//            var inputTime = binding?.EditTextTime?.text.toString()
+//            database.child("Trip").child(inputId.toString()).setValue(Trip(inputLocation, inputTime))
+//            binding?.EditTextId?.setText("")
+//            binding?.EditTextTime?.setText("")
+//            binding?.EditTextLocation?.setText("")
+//        }
+//    }
 
 }

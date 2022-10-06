@@ -37,6 +37,11 @@ android {
     }
 }
 
+configurations {
+    cleanedAnnotations
+    implementation.exclude group: 'org.jetbrains' , module:'annotations'
+}
+
 dependencies {
 
     implementation 'androidx.core:core-ktx:1.7.0'
@@ -51,4 +56,7 @@ dependencies {
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.4.0'
     implementation platform('com.google.firebase:firebase-bom:30.4.1')
     implementation 'com.google.firebase:firebase-analytics'
+    implementation "androidx.room:room-runtime:2.4.3"
+    implementation "androidx.room:room-compiler:2.4.3"
+    implementation "androidx.room:room-ktx:2.4.3"
 }

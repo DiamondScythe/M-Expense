@@ -27,7 +27,10 @@ class SelectionFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         binding?.apply{
-            InputButton.setOnClickListener{findNavController().navigate(R.id.action_selectionFragment_to_enterDataFragment)}
+            InputButton.setOnClickListener{
+                findNavController().navigate(R.id.action_selectionFragment_to_enterDataFragment)}
+            ViewDataButton.setOnClickListener{
+                findNavController().navigate(R.id.action_selectionFragment_to_viewDataFragment)}
         }
     }
 

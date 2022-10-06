@@ -20,7 +20,7 @@
         app:layout_constraintVertical_bias="0.400" />
 
     <Button
-        android:id="@+id/GetDataButton"
+        android:id="@+id/ViewDataButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Get data from server"
