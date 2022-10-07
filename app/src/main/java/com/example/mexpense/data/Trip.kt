@@ -9,7 +9,7 @@ data class Trip(
     @PrimaryKey(autoGenerate = true)
     val id: Int = 0,
     @ColumnInfo(name = "location")
-    val location: String = "",
+    val tripLocation: String = "",
     @ColumnInfo(name = "time")
-    val time: String = ""
+    val tripTime: String = ""
 )
