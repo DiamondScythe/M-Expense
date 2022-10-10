@@ -7,8 +7,8 @@ import androidx.room.PrimaryKey
 @Entity(tableName = "trip")
 data class Trip(
     @PrimaryKey(autoGenerate = true)
-    @ColumnInfo(name = "tripId")
-    val id: Int = 0,
+    @ColumnInfo(name = "id")
+    val tripId: Int = 0,
     @ColumnInfo(name = "location")
     val tripLocation: String = "",
     @ColumnInfo(name = "time")

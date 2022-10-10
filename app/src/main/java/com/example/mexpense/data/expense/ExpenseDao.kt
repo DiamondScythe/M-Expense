@@ -1,10 +1,9 @@
 package com.example.mexpense.data.expense
 
-import androidx.room.Dao
-import androidx.room.Delete
-import androidx.room.Insert
-import androidx.room.OnConflictStrategy
-import androidx.room.Update
+import androidx.room.*
+import com.example.mexpense.data.TripWithExpenses
+import com.example.mexpense.data.trip.Trip
+import kotlinx.coroutines.flow.Flow
 
 @Dao
 interface ExpenseDao {
@@ -16,4 +15,10 @@ interface ExpenseDao {
 
     @Delete
     suspend fun delete(delete: Delete)
+
+    @Query("SELECT * from expense WHERE id = :id")
+    fun getTrip(id: Int): Flow<Expense>
+
+    @Query("SELECT * from expense ORDER BY name ASC")
+    fun getTrips(): Flow<List<Expense>>
 }

@@ -4,7 +4,7 @@ import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.PrimaryKey
 
-@Entity(tableName = "Expense")
+@Entity(tableName = "expense")
 data class Expense(
     @PrimaryKey(autoGenerate = true)
     @ColumnInfo(name = "id")
