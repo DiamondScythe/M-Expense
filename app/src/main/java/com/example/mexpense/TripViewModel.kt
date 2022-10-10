@@ -1,13 +1,14 @@
 package com.example.mexpense
 
-import androidx.lifecycle.ViewModel
-import androidx.lifecycle.ViewModelProvider
-import androidx.lifecycle.viewModelScope
+import androidx.lifecycle.*
 import com.example.mexpense.data.trip.Trip
 import com.example.mexpense.data.trip.TripDao
 import kotlinx.coroutines.launch
 
 class TripViewModel(private val tripDao: TripDao) : ViewModel() {
+
+    val allTrips: LiveData<List<Trip>> = tripDao.getTrips().asLiveData()
+
     private fun insertTrip(trip: Trip) {
         viewModelScope.launch {
             tripDao.insert(trip)
