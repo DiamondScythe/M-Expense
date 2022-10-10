@@ -8,7 +8,7 @@
             android:id="@+id/selectionFragment"
             android:title="Test1" />
         <item
-            android:id="@+id/enterDataFragment"
+            android:id="@+id/enterTripFragment"
             android:title="Test2" />
         <item
             android:id="@+id/viewDataFragment"

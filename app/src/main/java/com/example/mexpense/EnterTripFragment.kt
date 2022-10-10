@@ -7,12 +7,12 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.activityViewModels
 import com.example.mexpense.data.trip.Trip
-import com.example.mexpense.databinding.FragmentEnterDataBinding
+import com.example.mexpense.databinding.FragmentEnterTripBinding
 import androidx.navigation.fragment.findNavController
 
 
-class EnterDataFragment : Fragment() {
-    private var _binding: FragmentEnterDataBinding? = null
+class EnterTripFragment : Fragment() {
+    private var _binding: FragmentEnterTripBinding? = null
     private val binding get() = _binding!!
     private val viewModel: TripViewModel by activityViewModels{
         TripViewModelFactory(
@@ -26,7 +26,7 @@ class EnterDataFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        _binding = FragmentEnterDataBinding.inflate(inflater, container, false)
+        _binding = FragmentEnterTripBinding.inflate(inflater, container, false)
         return binding.root
     }
 
@@ -44,7 +44,7 @@ class EnterDataFragment : Fragment() {
                 binding.tripTime.text.toString()
             )
         }
-        val action = EnterDataFragmentDirections.actionEnterDataFragmentToSelectionFragment()
+        val action = EnterTripFragmentDirections.actionEnterTripFragmentToSelectionFragment()
         findNavController().navigate(action)
     }
 

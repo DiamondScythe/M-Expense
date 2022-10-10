@@ -28,7 +28,7 @@ class SelectionFragment : Fragment() {
 
         binding?.apply{
             InputButton.setOnClickListener{
-                findNavController().navigate(R.id.action_selectionFragment_to_enterDataFragment)}
+                findNavController().navigate(R.id.action_selectionFragment_to_enterTripFragment)}
             ViewDataButton.setOnClickListener{
                 findNavController().navigate(R.id.action_selectionFragment_to_viewDataFragment)}
         }

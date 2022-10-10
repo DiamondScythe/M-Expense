@@ -5,18 +5,18 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import com.example.mexpense.databinding.FragmentEnterDataBinding
+import com.example.mexpense.databinding.FragmentEnterTripBinding
 import com.google.firebase.database.FirebaseDatabase
 
 
 class ViewDataFragment : Fragment() {
-    private var binding: FragmentEnterDataBinding? = null
+    private var binding: FragmentEnterTripBinding? = null
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        val fragmentBinding = FragmentEnterDataBinding.inflate(inflater, container, false)
+        val fragmentBinding = FragmentEnterTripBinding.inflate(inflater, container, false)
         binding = fragmentBinding
         return fragmentBinding.root
     }

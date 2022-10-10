@@ -10,19 +10,19 @@
         android:name="com.example.mexpense.SelectionFragment"
         android:label="SelectionFragment" >
         <action
-            android:id="@+id/action_selectionFragment_to_enterDataFragment"
-            app:destination="@id/enterDataFragment" />
+            android:id="@+id/action_selectionFragment_to_enterTripFragment"
+            app:destination="@id/enterTripFragment" />
         <action
             android:id="@+id/action_selectionFragment_to_viewDataFragment"
             app:destination="@id/viewDataFragment" />
     </fragment>
     <fragment
-        android:id="@+id/enterDataFragment"
-        android:name="com.example.mexpense.EnterDataFragment"
-        android:label="fragment_enter_data"
-        tools:layout="@layout/fragment_enter_data" >
+        android:id="@+id/enterTripFragment"
+        android:name="com.example.mexpense.EnterTripFragment"
+        android:label="fragment_enter_trip"
+        tools:layout="@layout/fragment_enter_trip" >
         <action
-            android:id="@+id/action_enterDataFragment_to_selectionFragment"
+            android:id="@+id/action_enterTripFragment_to_selectionFragment"
             app:destination="@id/selectionFragment" />
     </fragment>
     <fragment

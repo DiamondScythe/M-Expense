@@ -1,10 +1,8 @@
 package com.example.mexpense
 
-import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.Menu
-import android.widget.Button
 import androidx.drawerlayout.widget.DrawerLayout
 import androidx.navigation.NavController
 import androidx.navigation.findNavController
@@ -48,7 +46,7 @@ class MainActivity : AppCompatActivity() {
         // menu should be considered as top level destinations.
         appBarConfiguration = AppBarConfiguration(
             setOf(
-                R.id.selectionFragment, R.id.enterDataFragment, R.id.viewDataFragment
+                R.id.selectionFragment, R.id.enterTripFragment, R.id.viewDataFragment
             ), drawerLayout
         )
 
