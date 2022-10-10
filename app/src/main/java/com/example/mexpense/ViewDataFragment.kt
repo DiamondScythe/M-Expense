@@ -11,7 +11,6 @@ import com.google.firebase.database.FirebaseDatabase
 
 class ViewDataFragment : Fragment() {
     private var binding: FragmentEnterDataBinding? = null
-    var database = FirebaseDatabase.getInstance().reference
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
