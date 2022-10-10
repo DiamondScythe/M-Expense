@@ -1,12 +1,10 @@
 package com.example.mexpense
 
-import android.content.ClipData
-import android.telephony.TelephonyCallback.CellLocationListener
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.viewModelScope
-import com.example.mexpense.data.Trip
-import com.example.mexpense.data.TripDao
+import com.example.mexpense.data.trip.Trip
+import com.example.mexpense.data.trip.TripDao
 import kotlinx.coroutines.launch
 
 class TripViewModel(private val tripDao: TripDao) : ViewModel() {

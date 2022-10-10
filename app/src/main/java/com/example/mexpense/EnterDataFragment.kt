@@ -6,7 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.activityViewModels
-import com.example.mexpense.data.Trip
+import com.example.mexpense.data.trip.Trip
 import com.example.mexpense.databinding.FragmentEnterDataBinding
 import androidx.navigation.fragment.findNavController
 

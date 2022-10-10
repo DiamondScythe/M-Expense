@@ -1,7 +1,7 @@
 package com.example.mexpense
 
 import android.app.Application
-import com.example.mexpense.data.TripRoomDatabase
+import com.example.mexpense.data.trip.TripRoomDatabase
 
 class MExpenseApplication : Application() {
     // Using by lazy so the database and the repository are only created when they're needed

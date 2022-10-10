@@ -1,12 +1,12 @@
-package com.example.mexpense.data
+package com.example.mexpense.data.trip
 
-import android.content.ClipData
 import androidx.room.Dao
 import androidx.room.Delete
 import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
 import androidx.room.Update
+import com.example.mexpense.data.trip.Trip
 import kotlinx.coroutines.flow.Flow
 
 @Dao
@@ -21,7 +21,7 @@ interface TripDao {
     suspend fun delete(trip: Trip)
 
     //co flow khoi xai suspend
-    @Query("SELECT * from trip WHERE id = :id")
+    @Query("SELECT * from trip WHERE tripId = :id")
     fun getTrip(id: Int): Flow<Trip>
 
     @Query("SELECT * from trip ORDER BY location ASC")
