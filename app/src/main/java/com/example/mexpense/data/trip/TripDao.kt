@@ -1,7 +1,6 @@
 package com.example.mexpense.data.trip
 
 import androidx.room.*
-import com.example.mexpense.data.TripWithExpenses
 import com.example.mexpense.data.trip.Trip
 import kotlinx.coroutines.flow.Flow
 
@@ -23,7 +22,7 @@ interface TripDao {
     @Query("SELECT * from trip ORDER BY location ASC")
     fun getTrips(): Flow<List<Trip>>
 
-    @Transaction
-    @Query("SELECT * FROM trip")
-    fun getUsersWithPlaylists(): List<TripWithExpenses>
+//    @Transaction
+//    @Query("SELECT * FROM trip")
+//    fun getUsersWithPlaylists(): List<TripWithExpenses>
 }
