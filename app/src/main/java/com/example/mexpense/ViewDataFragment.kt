@@ -6,6 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.activityViewModels
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.mexpense.databinding.FragmentEnterTripBinding
 import com.example.mexpense.databinding.FragmentViewDataBinding
@@ -35,6 +36,8 @@ class ViewDataFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         val adapter = TripListAdapter {
+            val action = ViewDataFragmentDirections.actionViewDataFragmentToTripDetailFragment(it.tripId)
+            this.findNavController().navigate(action)
         }
         binding.recyclerView.adapter = adapter
         //listens to data changes

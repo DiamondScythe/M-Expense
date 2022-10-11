@@ -44,8 +44,10 @@ class EnterTripFragment : Fragment() {
                 binding.tripTime.text.toString()
             )
         }
+        binding.tripLocation.text.clear()
+        binding.tripTime.text.clear()
         val action = EnterTripFragmentDirections.actionEnterTripFragmentToSelectionFragment()
-        findNavController().navigate(action)
+//        findNavController().navigate(action)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {

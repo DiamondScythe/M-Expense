@@ -29,5 +29,18 @@
         android:id="@+id/viewDataFragment"
         android:name="com.example.mexpense.ViewDataFragment"
         android:label="fragment_view_data"
-        tools:layout="@layout/fragment_view_data" />
+        tools:layout="@layout/fragment_view_data" >
+        <action
+            android:id="@+id/action_viewDataFragment_to_tripDetailFragment"
+            app:destination="@id/tripDetailFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/tripDetailFragment"
+        android:name="com.example.mexpense.TripDetailFragment"
+        android:label="fragment_trip_detail"
+        tools:layout="@layout/fragment_trip_detail" >
+        <argument
+            android:name="tripId"
+            app:argType="integer" />
+    </fragment>
 </navigation>
