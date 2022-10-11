@@ -1,6 +1,7 @@
 package com.example.mexpense
 
 import androidx.lifecycle.*
+import com.example.mexpense.data.expense.Expense
 import com.example.mexpense.data.trip.Trip
 import com.example.mexpense.data.trip.TripDao
 import kotlinx.coroutines.launch

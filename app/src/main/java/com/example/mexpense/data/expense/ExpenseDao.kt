@@ -16,8 +16,8 @@ interface ExpenseDao {
     suspend fun delete(delete: Expense)
 
     @Query("SELECT * from expense WHERE id = :id")
-    fun getTrip(id: Int): Flow<Expense>
+    fun getExpense(id: Int): Flow<Expense>
 
     @Query("SELECT * from expense ORDER BY name ASC")
-    fun getTrips(): Flow<List<Expense>>
+    fun getExpenses(): Flow<List<Expense>>
 }
