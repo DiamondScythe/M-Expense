@@ -6,11 +6,13 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.activityViewModels
+import androidx.lifecycle.LiveData
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.mexpense.data.ExpenseViewModel
 import com.example.mexpense.data.ExpenseViewModelFactory
+import com.example.mexpense.data.expense.Expense
 import com.example.mexpense.data.trip.Trip
 import com.example.mexpense.databinding.FragmentTripDetailBinding
 
@@ -63,6 +65,12 @@ class TripDetailFragment : Fragment() {
             //passes the lambda for OnItemClicked
         }
         binding.recyclerView.adapter = adapter
+        expenseViewModel.retrieveTripExpense(id).observe(this.viewLifecycleOwner) { expenses ->
+            //This will update the RecyclerView with the new items on the list.
+            expenses.let {
+                adapter.submitList(it)
+            }
+        }
         binding.recyclerView.layoutManager = LinearLayoutManager(this.context)
 
         binding.addExpenseButton.setOnClickListener{

@@ -1,11 +1,8 @@
 package com.example.mexpense.data
 
 import androidx.lifecycle.*
-import com.example.mexpense.TripViewModel
 import com.example.mexpense.data.expense.Expense
 import com.example.mexpense.data.expense.ExpenseDao
-import com.example.mexpense.data.trip.Trip
-import com.example.mexpense.data.trip.TripDao
 import kotlinx.coroutines.launch
 
 class ExpenseViewModel(private val expenseDao: ExpenseDao): ViewModel() {
@@ -27,6 +24,14 @@ class ExpenseViewModel(private val expenseDao: ExpenseDao): ViewModel() {
             expenseAmount = expenseAmount,
             tripOwnerId = tripOwnerId
         )
+    }
+
+    fun retrieveTripExpense(tripOwnerId: Int): LiveData<List<Expense>> {
+        return expenseDao.getTripExpenses(tripOwnerId).asLiveData()
+    }
+
+    fun retrieveTripOwnerId(id: Int): Int{
+        return expenseDao.getTripOwnerId(id)
     }
 
     fun isEntryValid(
