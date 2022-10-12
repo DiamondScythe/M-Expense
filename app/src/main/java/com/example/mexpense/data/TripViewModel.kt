@@ -1,5 +1,6 @@
 package com.example.mexpense
 
+import android.content.ClipData
 import androidx.lifecycle.*
 import com.example.mexpense.data.expense.Expense
 import com.example.mexpense.data.trip.Trip
@@ -34,6 +35,10 @@ class TripViewModel(private val tripDao: TripDao) : ViewModel() {
             return false
         }
         return true
+    }
+
+    fun retrieveTrip(id: Int): LiveData<Trip> {
+        return tripDao.getTrip(id).asLiveData()
     }
 
 }

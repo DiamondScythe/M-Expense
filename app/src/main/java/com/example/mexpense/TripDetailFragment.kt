@@ -6,7 +6,11 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.activityViewModels
+import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
+import androidx.recyclerview.widget.LinearLayoutManager
+import com.example.mexpense.data.ExpenseViewModel
+import com.example.mexpense.data.ExpenseViewModelFactory
 import com.example.mexpense.data.trip.Trip
 import com.example.mexpense.databinding.FragmentTripDetailBinding
 
@@ -16,11 +20,24 @@ class TripDetailFragment : Fragment() {
     private val binding get() = _binding!!
 
     lateinit var trip: Trip
-    private val viewModel: TripViewModel by activityViewModels{
+    private val tripViewModel: TripViewModel by activityViewModels{
         TripViewModelFactory(
             //Use the database instance you created in one of the previous tasks to call the itemDao constructor.
             (activity?.application as MExpenseApplication).database.tripDao()
         )
+    }
+
+    private val expenseViewModel: ExpenseViewModel by activityViewModels {
+        ExpenseViewModelFactory(
+            (activity?.application as MExpenseApplication).database2.expenseDao()
+        )
+    }
+
+    private fun bind(trip: Trip){
+        binding.apply{
+            textView.text = "Location: ${trip.tripLocation}"
+            textView2.text = "Time: ${trip.tripTime}"
+        }
     }
 
     private val navigationArgs: TripDetailFragmentArgs by navArgs()
@@ -35,8 +52,17 @@ class TripDetailFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        //you passed item id as a navigation argument to ItemDetailFragment from the ItemListFragment
+        //you passed item id as a navigation argument to TripDetailFragment from the ViewDataFragment
         //Retrieve and assign the navigation argument to this new variable.
         val id = navigationArgs.tripId
+        tripViewModel.retrieveTrip(id).observe(this.viewLifecycleOwner) { selectedItem ->
+            trip = selectedItem
+            bind(trip)
+        }
+        val adapter = ExpenseListAdapter {
+            //passes the lambda for OnItemClicked
+        }
+        binding.recyclerView.adapter = adapter
+        binding.recyclerView.layoutManager = LinearLayoutManager(this.context)
     }
 }
