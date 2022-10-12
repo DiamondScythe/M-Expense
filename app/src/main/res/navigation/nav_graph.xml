@@ -41,6 +41,22 @@
         tools:layout="@layout/fragment_trip_detail" >
         <argument
             android:name="tripId"
-            app:argType="integer" />
+            app:argType="integer"
+            android:defaultValue="0" />
+        <action
+            android:id="@+id/action_tripDetailFragment_to_enterExpenseFragment"
+            app:destination="@id/enterExpenseFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/enterExpenseFragment"
+        android:name="com.example.mexpense.EnterExpenseFragment"
+        android:label="EnterExpenseFragment" >
+        <argument
+            android:name="tripId"
+            app:argType="integer"
+            android:defaultValue="0" />
+        <action
+            android:id="@+id/action_enterExpenseFragment_to_tripDetailFragment"
+            app:destination="@id/tripDetailFragment" />
     </fragment>
 </navigation>

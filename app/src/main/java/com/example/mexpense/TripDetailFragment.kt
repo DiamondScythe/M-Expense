@@ -64,5 +64,10 @@ class TripDetailFragment : Fragment() {
         }
         binding.recyclerView.adapter = adapter
         binding.recyclerView.layoutManager = LinearLayoutManager(this.context)
+
+        binding.addExpenseButton.setOnClickListener{
+            val action = TripDetailFragmentDirections.actionTripDetailFragmentToEnterExpenseFragment(navigationArgs.tripId)
+            this.findNavController().navigate(action)
+        }
     }
 }

@@ -45,6 +45,7 @@ class ExpenseViewModel(private val expenseDao: ExpenseDao): ViewModel() {
                       expenseAmount: Int, tripOwnerId: Int){
         val newExpense = getNewExpenseEntry(expenseName, expenseDetails, expenseType,
             expenseAmount, tripOwnerId)
+        insertExpense(newExpense)
     }
 }
 
