@@ -9,6 +9,13 @@
     android:layout_margin="16dp"
     tools:context=".ViewDataFragment">
 
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/toolbar_home"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        app:layout_constraintTop_toTopOf="parent"
+        app:title="Home" />
+
     <TextView
         android:id="@+id/tripLocation"
         style="@style/Widget.Trip.Header"

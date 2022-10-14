@@ -49,5 +49,7 @@ class ViewDataFragment : Fragment() {
             }
         }
         binding.recyclerView.layoutManager = LinearLayoutManager(this.context)
+
+        //setting up custom menu
     }
 }

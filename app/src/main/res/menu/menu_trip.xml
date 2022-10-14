@@ -6,4 +6,9 @@
         android:orderInCategory="100"
         android:title="Settings"
         app:showAsAction="never" />
+    <item android:id="@+id/action_search"
+        android:title="@string/app_name"
+        android:icon="@drawable/ic_search"
+        app:showAsAction="collapseActionView|ifRoom"
+        />
 </menu>
