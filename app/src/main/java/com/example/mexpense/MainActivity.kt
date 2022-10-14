@@ -3,6 +3,8 @@ package com.example.mexpense
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.Menu
+import android.widget.SearchView
+import android.widget.Toast
 import androidx.drawerlayout.widget.DrawerLayout
 import androidx.navigation.NavController
 import androidx.navigation.findNavController
@@ -31,7 +33,7 @@ class MainActivity : AppCompatActivity() {
 
         //for the fab
         binding.appBarMain.fab.setOnClickListener { view ->
-            Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
+            Snackbar.make(view, "TODO: Add functionality", Snackbar.LENGTH_LONG)
                 .setAction("Action", null).show()
         }
 
