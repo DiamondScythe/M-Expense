@@ -1,20 +1,25 @@
 package com.example.mexpense
 
-import android.content.ClipData
+import android.provider.Contacts
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import android.widget.Filter
+import android.widget.Filterable
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.example.mexpense.data.trip.Trip
 import com.example.mexpense.databinding.TripListItemBinding
+import java.util.*
 
 /**
  * [ListAdapter] implementation for the recyclerview.
  */
 
 class TripListAdapter(private val onItemClicked: (Trip) -> Unit) :
-    ListAdapter<Trip, TripListAdapter.TripViewHolder>(DiffCallback) {
+    ListAdapter<Trip, TripListAdapter.TripViewHolder>(DiffCallback), Filterable {
+
+    private var tripList = mutableListOf<Trip>()
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): TripViewHolder {
         //returns a new TripViewHolder when RecyclerView needs one.
@@ -34,6 +39,11 @@ class TripListAdapter(private val onItemClicked: (Trip) -> Unit) :
             onItemClicked(current)
         }
         holder.bind(current)
+    }
+
+    fun setData(list: List<Trip>?){
+        this.tripList = (list as MutableList<Trip>?)!!
+        submitList(list)
     }
 
     //Define the TripViewHolder class, extend it from RecyclerView.ViewHolder.
@@ -61,4 +71,33 @@ class TripListAdapter(private val onItemClicked: (Trip) -> Unit) :
             }
         }
     }
+
+    override fun getFilter(): Filter {
+        return customFilter
+    }
+
+    private val customFilter = object : Filter(){
+        override fun performFiltering(constraint: CharSequence?): FilterResults {
+            val filteredList = mutableListOf<Trip>()
+            if (constraint == null || constraint.isEmpty()) {
+                filteredList.addAll(tripList)
+            } else {
+                for (item in tripList) {
+                    if (constraint.toString().lowercase() in item.tripLocation.lowercase()) {
+                        filteredList.add(item)
+                    }
+                }
+            }
+            val results = FilterResults()
+            results.values = filteredList
+            return results
+        }
+
+        override fun publishResults(constraint: CharSequence?, filterResults: FilterResults?) {
+            submitList(filterResults?.values as MutableList<Trip>)
+        }
+
+    }
+
 }
+

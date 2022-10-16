@@ -2,13 +2,15 @@ package com.example.mexpense
 
 import android.os.Bundle
 import android.view.*
+import androidx.appcompat.widget.SearchView
+import androidx.core.view.MenuHost
+import androidx.core.view.MenuProvider
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
+import androidx.lifecycle.Lifecycle
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.example.mexpense.databinding.FragmentEnterTripBinding
 import com.example.mexpense.databinding.FragmentViewDataBinding
-import com.google.firebase.database.FirebaseDatabase
 
 
 class ViewDataFragment : Fragment() {
@@ -44,6 +46,8 @@ class ViewDataFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+
         val adapter = TripListAdapter {
             //passes the lambda for OnItemClicked
             val action = ViewDataFragmentDirections.actionViewDataFragmentToTripDetailFragment(it.tripId)
@@ -54,11 +58,51 @@ class ViewDataFragment : Fragment() {
         viewModel.allTrips.observe(this.viewLifecycleOwner) { trips ->
             //This will update the RecyclerView with the new items on the list.
             trips.let {
-                adapter.submitList(it)
+//                adapter.submitList(it)
+                adapter.setData(it)
             }
         }
         binding.recyclerView.layoutManager = LinearLayoutManager(this.context)
+        //setting up menu search item
+        val menuHost: MenuHost = requireActivity()
+        // Add menu items without using the Fragment Menu APIs
+        // Note how we can tie the MenuProvider to the viewLifecycleOwner
+        // and an optional Lifecycle.State (here, RESUMED) to indicate when
+        // the menu should be visible
+        menuHost.addMenuProvider(object : MenuProvider {
+            override fun onCreateMenu(menu: Menu, menuInflater: MenuInflater) {
+                // Add menu items here
+                menuInflater.inflate(R.menu.menu_trip, menu)
+                val searchItem = menu.findItem(R.id.action_search)
+                val searchView = searchItem.actionView as SearchView?
+                searchView?.setOnQueryTextListener(object: SearchView.OnQueryTextListener{
+                    override fun onQueryTextSubmit(query: String?): Boolean {
+                        if (query != null) {
+                            adapter.filter.filter(query)
+                        }
+                        return true
+                    }
 
-        //setting up custom menu
+                    //this is where we're going to implement the filter logic
+                    override fun onQueryTextChange(newText: String?): Boolean {
+                        if (newText != null) {
+                            adapter.filter.filter(newText)
+                        }
+                        return true
+                    }
+                })
+            }
+
+            override fun onMenuItemSelected(menuItem: MenuItem): Boolean {
+                // Handle the menu selection. getting search view of our item.
+                return when (menuItem.itemId) {
+                    R.id.action_search -> {
+                        false
+                    }
+                    else -> false
+                }
+            }
+        }, viewLifecycleOwner, Lifecycle.State.RESUMED)
+    //setting up custom menu
     }
 }
