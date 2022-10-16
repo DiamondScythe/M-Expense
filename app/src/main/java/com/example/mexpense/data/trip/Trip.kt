@@ -12,5 +12,9 @@ data class Trip(
     @ColumnInfo(name = "location")
     val tripLocation: String = "",
     @ColumnInfo(name = "time")
-    val tripTime: String = ""
+    val tripTime: String = "",
+    @ColumnInfo(name = "riskAssessment")
+    val tripRiskAssessment: String = "",
+    @ColumnInfo(name = "description")
+    val tripDescription: String = "",
 )

@@ -17,21 +17,25 @@ class TripViewModel(private val tripDao: TripDao) : ViewModel() {
         }
     }
 
-    private fun getNewTripEntry(tripLocation: String, tripTime: String): Trip {
+    private fun getNewTripEntry(tripLocation: String, tripTime: String,
+                                tripRiskAssessment: String, tripDescription: String): Trip {
         return Trip(
             tripLocation = tripLocation,
-            tripTime = tripTime
+            tripTime = tripTime,
+            tripRiskAssessment = tripRiskAssessment,
+            tripDescription = tripDescription
         )
     }
 
-    fun addNewTrip(tripLocation: String, tripTime: String) {
-        val newTrip = getNewTripEntry(tripLocation, tripTime)
+    fun addNewTrip(tripLocation: String, tripTime: String,
+                   tripRiskAssessment: String, tripDescription: String) {
+        val newTrip = getNewTripEntry(tripLocation, tripTime, tripRiskAssessment, tripDescription)
         insertTrip(newTrip)
     }
 
     //check if the input box is empty or not
-    fun isEntryValid(tripLocation: String, tripTime: String): Boolean {
-        if (tripLocation.isBlank() || tripTime.isBlank()) {
+    fun isEntryValid(tripLocation: String, tripTime: String, tripRiskAssessment: String): Boolean {
+        if (tripLocation.isBlank() || tripTime.isBlank() || tripRiskAssessment.isBlank()) {
             return false
         }
         return true

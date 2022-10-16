@@ -1,10 +1,8 @@
 package com.example.mexpense
 
 import android.os.Bundle
+import android.view.*
 import androidx.fragment.app.Fragment
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -23,6 +21,17 @@ class ViewDataFragment : Fragment() {
             //Use the database instance you created in one of the previous tasks to call the itemDao constructor.
             (activity?.application as MExpenseApplication).database.tripDao()
         )
+    }
+
+//    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
+//        super.onCreateOptionsMenu(menu, inflater)
+//        inflater.inflate(R.menu.menu_test, menu)
+//    }
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+
+//        setHasOptionsMenu(true);
     }
 
     override fun onCreateView(

@@ -33,7 +33,8 @@ class EnterTripFragment : Fragment() {
     private fun isEntryValid(): Boolean {
         return viewModel.isEntryValid(
             binding.tripLocation.text.toString(),
-            binding.tripTime.text.toString()
+            binding.tripTime.text.toString(),
+            binding.tripRiskAssessment.text.toString()
         )
     }
 
@@ -41,11 +42,18 @@ class EnterTripFragment : Fragment() {
         if (isEntryValid()) {
             viewModel.addNewTrip(
                 binding.tripLocation.text.toString(),
-                binding.tripTime.text.toString()
+                binding.tripTime.text.toString(),
+                binding.tripRiskAssessment.text.toString(),
+                binding.tripDescription.text.toString(),
+
+
             )
+            binding.tripLocation.text.clear()
+            binding.tripTime.text.clear()
+            binding.tripRiskAssessment.text.clear()
+            binding.tripDescription.text.clear()
         }
-        binding.tripLocation.text.clear()
-        binding.tripTime.text.clear()
+
         val action = EnterTripFragmentDirections.actionEnterTripFragmentToSelectionFragment()
 //        findNavController().navigate(action)
     }

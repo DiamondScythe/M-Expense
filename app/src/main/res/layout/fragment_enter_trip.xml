@@ -15,7 +15,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.219"></EditText>
+        app:layout_constraintVertical_bias="0.102"></EditText>
 
     <EditText
         android:id="@+id/tripTime"
@@ -24,10 +24,34 @@
         android:hint="Time"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.495"
+        app:layout_constraintHorizontal_bias="0.512"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.366"></EditText>
+        app:layout_constraintVertical_bias="0.255"></EditText>
+
+    <EditText
+        android:id="@+id/tripRiskAssessment"
+        android:layout_width="288dp"
+        android:layout_height="90dp"
+        android:hint="Risk"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.512"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.414"></EditText>
+
+    <EditText
+        android:id="@+id/tripDescription"
+        android:layout_width="288dp"
+        android:layout_height="90dp"
+        android:hint="Description"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.512"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.567"></EditText>
 
     <Button
         android:id="@+id/ButtonEnter"
@@ -35,7 +59,7 @@
         android:layout_height="wrap_content"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tripTime"
+        app:layout_constraintTop_toBottomOf="@+id/tripDescription"
         android:layout_marginTop="20dp"
         android:text="Enter">
     </Button>
