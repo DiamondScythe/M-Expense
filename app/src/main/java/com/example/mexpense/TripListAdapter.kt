@@ -38,6 +38,10 @@ class TripListAdapter(private val onItemClicked: (Trip) -> Unit) :
         holder.itemView.setOnClickListener {
             onItemClicked(current)
         }
+        holder.itemView.setOnLongClickListener{
+            onItemClicked(current)
+            true
+        }
         holder.bind(current)
     }
 

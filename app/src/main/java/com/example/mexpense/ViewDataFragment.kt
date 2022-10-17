@@ -10,6 +10,7 @@ import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.Lifecycle
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.example.mexpense.data.trip.Trip
 import com.example.mexpense.databinding.FragmentViewDataBinding
 
 
@@ -25,21 +26,10 @@ class ViewDataFragment : Fragment() {
         )
     }
 
-//    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
-//        super.onCreateOptionsMenu(menu, inflater)
-//        inflater.inflate(R.menu.menu_test, menu)
-//    }
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-
-//        setHasOptionsMenu(true);
-    }
-
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         _binding = FragmentViewDataBinding.inflate(inflater, container, false)
         return binding.root
     }
@@ -52,13 +42,13 @@ class ViewDataFragment : Fragment() {
             //passes the lambda for OnItemClicked
             val action = ViewDataFragmentDirections.actionViewDataFragmentToTripDetailFragment(it.tripId)
             this.findNavController().navigate(action)
+
         }
         binding.recyclerView.adapter = adapter
         //listens to data changes
         viewModel.allTrips.observe(this.viewLifecycleOwner) { trips ->
             //This will update the RecyclerView with the new items on the list.
             trips.let {
-//                adapter.submitList(it)
                 adapter.setData(it)
             }
         }
@@ -102,7 +92,6 @@ class ViewDataFragment : Fragment() {
                     else -> false
                 }
             }
-        }, viewLifecycleOwner, Lifecycle.State.RESUMED)
-    //setting up custom menu
+        }, viewLifecycleOwner, Lifecycle.State.RESUMED) // this line makes the menu item lifecycle aware
     }
 }
