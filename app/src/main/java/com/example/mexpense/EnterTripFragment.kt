@@ -5,6 +5,8 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.CheckBox
+import android.widget.Toast
 import androidx.fragment.app.activityViewModels
 import com.example.mexpense.data.trip.Trip
 import com.example.mexpense.databinding.FragmentEnterTripBinding
@@ -21,6 +23,25 @@ class EnterTripFragment : Fragment() {
         )
     }
     lateinit var trip: Trip
+    private var tripRisk: String = "No"
+
+    fun onCheckboxClicked(view: View) {
+        if (view is CheckBox) {
+            val checked: Boolean = view.isChecked
+
+            when (view.id) {
+                R.id.riskCheckBox -> {
+                    if (checked) {
+                        tripRisk = "Yes"
+                        Toast.makeText(context, "checked", Toast.LENGTH_SHORT).show()
+                    } else {
+                        tripRisk = "No"
+                        Toast.makeText(context, "unchecked", Toast.LENGTH_SHORT).show()
+                    }
+                }
+            }
+        }
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -34,7 +55,7 @@ class EnterTripFragment : Fragment() {
         return viewModel.isEntryValid(
             binding.tripLocation.text.toString(),
             binding.tripTime.text.toString(),
-            binding.tripRiskAssessment.text.toString()
+            tripRisk
         )
     }
 
@@ -43,14 +64,13 @@ class EnterTripFragment : Fragment() {
             viewModel.addNewTrip(
                 binding.tripLocation.text.toString(),
                 binding.tripTime.text.toString(),
-                binding.tripRiskAssessment.text.toString(),
+                tripRisk,
                 binding.tripDescription.text.toString(),
 
 
             )
             binding.tripLocation.text.clear()
             binding.tripTime.text.clear()
-            binding.tripRiskAssessment.text.clear()
             binding.tripDescription.text.clear()
         }
 
@@ -63,6 +83,9 @@ class EnterTripFragment : Fragment() {
         binding.apply{
             binding.ButtonEnter.setOnClickListener{
                 addNewItem()
+            }
+            binding.riskCheckBox.setOnCheckedChangeListener{ view, _ ->
+                onCheckboxClicked(view)
             }
         }
     }

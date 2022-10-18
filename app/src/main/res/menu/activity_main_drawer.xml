@@ -6,12 +6,12 @@
     <group android:checkableBehavior="single">
         <item
             android:id="@+id/selectionFragment"
-            android:title="Test1" />
+            android:title="SelectionFragment" />
         <item
             android:id="@+id/enterTripFragment"
-            android:title="Test2" />
+            android:title="EnterTrip" />
         <item
             android:id="@+id/viewDataFragment"
-            android:title="Test3" />
+            android:title="ViewData" />
     </group>
 </menu>

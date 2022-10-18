@@ -42,7 +42,6 @@ class ViewDataFragment : Fragment() {
             //passes the lambda for OnItemClicked
             val action = ViewDataFragmentDirections.actionViewDataFragmentToTripDetailFragment(it.tripId)
             this.findNavController().navigate(action)
-
         }
         binding.recyclerView.adapter = adapter
         //listens to data changes

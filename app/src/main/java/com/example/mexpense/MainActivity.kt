@@ -79,8 +79,8 @@ class MainActivity : AppCompatActivity() {
 //        menuInflater.inflate(R.menu.main, menu)
 //        return true
 //    }
-
     override fun onSupportNavigateUp(): Boolean {
+    // TODO: add an if here to check if drawer is open 
         val navController = findNavController(R.id.nav_host_fragment)
         return navController.navigateUp(appBarConfiguration) || super.onSupportNavigateUp()
     }
