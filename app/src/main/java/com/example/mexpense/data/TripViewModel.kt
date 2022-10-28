@@ -1,10 +1,12 @@
 package com.example.mexpense
 
 import android.content.ClipData
+import android.content.LocusId
 import androidx.lifecycle.*
 import com.example.mexpense.data.expense.Expense
 import com.example.mexpense.data.trip.Trip
 import com.example.mexpense.data.trip.TripDao
+import kotlinx.coroutines.flow.toList
 import kotlinx.coroutines.launch
 
 class TripViewModel(private val tripDao: TripDao) : ViewModel() {
@@ -14,6 +16,12 @@ class TripViewModel(private val tripDao: TripDao) : ViewModel() {
     private fun insertTrip(trip: Trip) {
         viewModelScope.launch {
             tripDao.insert(trip)
+        }
+    }
+
+    private fun removeTrip(tripId: Int){
+        viewModelScope.launch {
+            tripDao.delete2(tripId)
         }
     }
 
@@ -44,7 +52,6 @@ class TripViewModel(private val tripDao: TripDao) : ViewModel() {
     fun retrieveTrip(id: Int): LiveData<Trip> {
         return tripDao.getTrip(id).asLiveData()
     }
-
 }
 
 class TripViewModelFactory(private val tripDao: TripDao) : ViewModelProvider.Factory {
