@@ -33,6 +33,9 @@
         <action
             android:id="@+id/action_viewDataFragment_to_tripDetailFragment"
             app:destination="@id/tripDetailFragment" />
+        <action
+            android:id="@+id/action_viewDataFragment_to_selectionFragment"
+            app:destination="@id/selectionFragment" />
     </fragment>
     <fragment
         android:id="@+id/tripDetailFragment"
@@ -46,6 +49,9 @@
         <action
             android:id="@+id/action_tripDetailFragment_to_enterExpenseFragment"
             app:destination="@id/enterExpenseFragment" />
+        <action
+            android:id="@+id/action_tripDetailFragment_to_viewDataFragment"
+            app:destination="@id/viewDataFragment" />
     </fragment>
     <fragment
         android:id="@+id/enterExpenseFragment"
