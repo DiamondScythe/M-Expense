@@ -1,10 +1,12 @@
 package com.example.mexpense
 
+import android.content.Context
 import android.provider.Contacts
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import android.widget.Filter
 import android.widget.Filterable
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
@@ -16,7 +18,7 @@ import java.util.*
  * [ListAdapter] implementation for the recyclerview.
  */
 
-class TripListAdapter(private val onItemClicked: (Trip) -> Unit) :
+class TripListAdapter(val parentFragment: ViewDataFragment) :
     ListAdapter<Trip, TripListAdapter.TripViewHolder>(DiffCallback), Filterable {
 
     private var tripList = mutableListOf<Trip>()
@@ -35,11 +37,12 @@ class TripListAdapter(private val onItemClicked: (Trip) -> Unit) :
     override fun onBindViewHolder(holder: TripViewHolder, position: Int) {
         //Get the current item using the method getItem(), passing the position.
         val current = getItem(position)
+        val tripId = current.tripId
         holder.itemView.setOnClickListener {
-            onItemClicked(current)
+            onItemClicked(tripId)
         }
         holder.itemView.setOnLongClickListener{
-            onItemClicked(current)
+            onItemClicked(tripId)
             true
         }
         holder.bind(current)
@@ -48,6 +51,11 @@ class TripListAdapter(private val onItemClicked: (Trip) -> Unit) :
     fun setData(list: List<Trip>?){
         this.tripList = (list as MutableList<Trip>?)!!
         submitList(list)
+    }
+
+    private fun onItemClicked(tripId: Int){
+        val action = ViewDataFragmentDirections.actionViewDataFragmentToTripDetailFragment(tripId)
+        parentFragment.findNavController().navigate(action)
     }
 
     //Define the TripViewHolder class, extend it from RecyclerView.ViewHolder.

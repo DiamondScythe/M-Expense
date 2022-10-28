@@ -37,12 +37,7 @@ class ViewDataFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-
-        val adapter = TripListAdapter {
-            //passes the lambda for OnItemClicked
-            val action = ViewDataFragmentDirections.actionViewDataFragmentToTripDetailFragment(it.tripId)
-            this.findNavController().navigate(action)
-        }
+        val adapter = TripListAdapter(this)
         binding.recyclerView.adapter = adapter
         //listens to data changes
         viewModel.allTrips.observe(this.viewLifecycleOwner) { trips ->
