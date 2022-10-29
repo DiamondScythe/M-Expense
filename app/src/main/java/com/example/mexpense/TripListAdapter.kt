@@ -51,7 +51,7 @@ class TripListAdapter(val parentFragment: ViewDataFragment) :
                 true
             }
             contextMenu.add("Edit").setOnMenuItemClickListener {
-                onItemClicked(tripId)
+                navigateToEdit(tripId)
                 true
             }
             contextMenu.add("Delete").setOnMenuItemClickListener {
@@ -81,6 +81,11 @@ class TripListAdapter(val parentFragment: ViewDataFragment) :
 
     private suspend fun deleteItem(tripId: Int) {
         parentFragment.deleteStuff(tripId)
+    }
+
+    private fun navigateToEdit(tripId: Int){
+        val action = ViewDataFragmentDirections.actionViewDataFragmentToEditTripFragment(tripId)
+        parentFragment.findNavController().navigate(action)
     }
 
     fun setData(list: List<Trip>?){

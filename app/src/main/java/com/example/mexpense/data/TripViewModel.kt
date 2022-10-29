@@ -19,6 +19,12 @@ class TripViewModel(private val tripDao: TripDao) : ViewModel() {
         }
     }
 
+    private fun updateTrip(trip: Trip) {
+        viewModelScope.launch {
+            tripDao.update(trip)
+        }
+    }
+
     private fun deleteTrip(tripId: Int){
         viewModelScope.launch {
             tripDao.delete2(tripId)
@@ -35,10 +41,27 @@ class TripViewModel(private val tripDao: TripDao) : ViewModel() {
         )
     }
 
+    private fun getNewTripEditEntry(tripId: Int, tripLocation: String, tripTime: String,
+                                tripRiskAssessment: String, tripDescription: String): Trip {
+        return Trip(
+            tripId = tripId,
+            tripLocation = tripLocation,
+            tripTime = tripTime,
+            tripRiskAssessment = tripRiskAssessment,
+            tripDescription = tripDescription
+        )
+    }
+
     fun addNewTrip(tripLocation: String, tripTime: String,
                    tripRiskAssessment: String, tripDescription: String) {
         val newTrip = getNewTripEntry(tripLocation, tripTime, tripRiskAssessment, tripDescription)
         insertTrip(newTrip)
+    }
+
+    fun updateWithNewTrip(tripId: Int, tripLocation: String, tripTime: String,
+                 tripRiskAssessment: String, tripDescription: String) {
+        val newTrip = getNewTripEditEntry(tripId, tripLocation, tripTime, tripRiskAssessment, tripDescription)
+        updateTrip(newTrip)
     }
 
     //check if the input box is empty or not
@@ -53,7 +76,11 @@ class TripViewModel(private val tripDao: TripDao) : ViewModel() {
         return tripDao.getTrip(id).asLiveData()
     }
 
-    suspend fun removeTrip(tripId: Int){
+    fun retrieveStaticTrip(id: Int): Trip {
+        return tripDao.getStaticTrip(id)
+    }
+
+    fun removeTrip(tripId: Int){
         return tripDao.delete2(tripId)
     }
 }

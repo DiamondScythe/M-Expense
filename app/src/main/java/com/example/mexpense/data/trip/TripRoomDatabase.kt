@@ -23,6 +23,8 @@ abstract class TripRoomDatabase : RoomDatabase() {
                 )   // Wipes and rebuilds instead of migrating if no Migration object.
                     // Migration is not part of this codelab.
                     .fallbackToDestructiveMigration()
+                        //allows main thread queries to be run
+                    .allowMainThreadQueries()
                     .build()
                 INSTANCE = instance
                 return instance
