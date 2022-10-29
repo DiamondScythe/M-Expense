@@ -19,7 +19,7 @@ class TripViewModel(private val tripDao: TripDao) : ViewModel() {
         }
     }
 
-    private fun removeTrip(tripId: Int){
+    private fun deleteTrip(tripId: Int){
         viewModelScope.launch {
             tripDao.delete2(tripId)
         }
@@ -51,6 +51,10 @@ class TripViewModel(private val tripDao: TripDao) : ViewModel() {
 
     fun retrieveTrip(id: Int): LiveData<Trip> {
         return tripDao.getTrip(id).asLiveData()
+    }
+
+    suspend fun removeTrip(tripId: Int){
+        return tripDao.delete2(tripId)
     }
 }
 

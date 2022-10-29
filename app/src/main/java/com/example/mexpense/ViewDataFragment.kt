@@ -11,6 +11,7 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.Lifecycle
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.example.mexpense.data.trip.Trip
 import com.example.mexpense.databinding.FragmentViewDataBinding
 
 
@@ -24,6 +25,10 @@ class ViewDataFragment : Fragment() {
             //Use the database instance you created in one of the previous tasks to call the itemDao constructor.
             (activity?.application as MExpenseApplication).database.tripDao()
         )
+    }
+
+    suspend fun deleteStuff(tripId: Int){
+        viewModel.removeTrip(tripId)
     }
 
     override fun onCreateView(
@@ -92,33 +97,9 @@ class ViewDataFragment : Fragment() {
                     }
                 }
             },
+            // this line makes the menu item lifecycle aware
             viewLifecycleOwner,
             Lifecycle.State.RESUMED
-        ) // this line makes the menu item lifecycle aware
+        )
     }
-
-//    override fun onCreateContextMenu(
-//        menu: ContextMenu,
-//        v: View,
-//        menuInfo: ContextMenu.ContextMenuInfo?,
-//    ) {
-//        super.onCreateContextMenu(menu, v, menuInfo)
-//        val inflater = requireActivity().menuInflater
-//        inflater.inflate(R.menu.context_menu, menu)
-//    }
-//
-//    override fun onContextItemSelected(item: MenuItem): Boolean {
-//        val info = item.menuInfo as AdapterView.AdapterContextMenuInfo
-//        return when (item.itemId) {
-//            R.id.edit -> {
-//                Toast.makeText(context, "testing1", Toast.LENGTH_SHORT).show()
-//                true
-//            }
-//            R.id.delete -> {
-//                Toast.makeText(context, "testing2", Toast.LENGTH_SHORT).show()
-//                true
-//            }
-//            else -> super.onContextItemSelected(item)
-//        }
-//    }
 }

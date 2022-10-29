@@ -5,6 +5,7 @@ import android.view.ViewGroup
 import android.widget.Filter
 import android.widget.Filterable
 import androidx.appcompat.app.AlertDialog
+import androidx.core.content.ContentProviderCompat.requireContext
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.DiffUtil
@@ -12,6 +13,9 @@ import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.example.mexpense.data.trip.Trip
 import com.example.mexpense.databinding.TripListItemBinding
+import com.google.android.material.dialog.MaterialAlertDialogBuilder
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.launch
 
 
 /**
@@ -41,10 +45,6 @@ class TripListAdapter(val parentFragment: ViewDataFragment) :
         holder.itemView.setOnClickListener {
             onItemClicked(tripId)
         }
-//        holder.itemView.setOnLongClickListener{
-//            onItemHeld(tripId)
-//            true
-//        }
         holder.itemView.setOnCreateContextMenuListener { contextMenu, _, _ ->
             contextMenu.add("View details").setOnMenuItemClickListener {
                 onItemClicked(tripId)
@@ -55,22 +55,32 @@ class TripListAdapter(val parentFragment: ViewDataFragment) :
                 true
             }
             contextMenu.add("Delete").setOnMenuItemClickListener {
-                val builder = parentFragment.context?.let { it1 -> AlertDialog.Builder(it1) }
-                builder?.setMessage("Are you sure you want to delete this record?")
-                    ?.setCancelable(false)
-                    ?.setPositiveButton("Yes") { dialog, tripId ->
-                        // Delete selected note from database
-                    }
-                    ?.setNegativeButton("No") { dialog, tripId ->
-                        // Dismiss the dialog
-                        dialog.dismiss()
-                    }
-                val alert = builder?.create()
-                builder?.create()?.show()
+                showConfirmDialog(tripId)
                 true
             }
         }
         holder.bind(current)
+    }
+
+    private fun showConfirmDialog(tripId: Int) {
+        MaterialAlertDialogBuilder(parentFragment.requireContext())
+            .setTitle("Record deletion")
+            .setMessage("do u really wanna delete this?")
+            .setCancelable(false)
+            .setNegativeButton("No") { dialog , _ ->
+                dialog.dismiss()
+            }
+            .setPositiveButton("Yes") { dialog , _ ->
+                //band-aid solution. Needs replacement
+                GlobalScope.launch {
+                    deleteItem(tripId)
+                }
+            }
+            .show()
+    }
+
+    private suspend fun deleteItem(tripId: Int) {
+        parentFragment.deleteStuff(tripId)
     }
 
     fun setData(list: List<Trip>?){
