@@ -27,12 +27,5 @@ class SelectionFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
-//        binding?.apply{
-//            InputButton.setOnClickListener{
-//                findNavController().navigate(R.id.action_selectionFragment_to_enterTripFragment)}
-//            ViewDataButton.setOnClickListener{
-//                findNavController().navigate(R.id.action_selectionFragment_to_viewDataFragment)}
-
     }
 }

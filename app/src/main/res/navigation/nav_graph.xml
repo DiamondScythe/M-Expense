@@ -54,7 +54,9 @@
             app:destination="@id/enterExpenseFragment" />
         <action
             android:id="@+id/action_tripDetailFragment_to_viewDataFragment"
-            app:destination="@id/viewDataFragment" />
+            app:destination="@id/viewDataFragment"
+            app:popUpTo="@id/viewDataFragment"
+            app:popUpToInclusive="true" />
     </fragment>
     <fragment
         android:id="@+id/enterExpenseFragment"
