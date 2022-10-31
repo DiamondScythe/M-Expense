@@ -7,7 +7,7 @@
 
     <fragment
         android:id="@+id/selectionFragment"
-        android:name="com.example.mexpense.fragments.SelectionFragment"
+        android:name="com.example.mexpense.ui.fragments.SelectionFragment"
         android:label="SelectionFragment" >
         <action
             android:id="@+id/action_selectionFragment_to_enterTripFragment"
@@ -18,7 +18,7 @@
     </fragment>
     <fragment
         android:id="@+id/enterTripFragment"
-        android:name="com.example.mexpense.fragments.EnterTripFragment"
+        android:name="com.example.mexpense.ui.fragments.EnterTripFragment"
         android:label="fragment_enter_trip"
         tools:layout="@layout/fragment_enter_trip" >
         <action
@@ -27,7 +27,7 @@
     </fragment>
     <fragment
         android:id="@+id/viewDataFragment"
-        android:name="com.example.mexpense.fragments.ViewDataFragment"
+        android:name="com.example.mexpense.ui.fragments.ViewDataFragment"
         android:label="fragment_view_data"
         tools:layout="@layout/fragment_view_data" >
         <action
@@ -42,7 +42,7 @@
     </fragment>
     <fragment
         android:id="@+id/tripDetailFragment"
-        android:name="com.example.mexpense.fragments.TripDetailFragment"
+        android:name="com.example.mexpense.ui.fragments.TripDetailFragment"
         android:label="fragment_trip_detail"
         tools:layout="@layout/fragment_trip_detail" >
         <argument
@@ -60,7 +60,7 @@
     </fragment>
     <fragment
         android:id="@+id/enterExpenseFragment"
-        android:name="com.example.mexpense.fragments.EnterExpenseFragment"
+        android:name="com.example.mexpense.ui.fragments.EnterExpenseFragment"
         android:label="EnterExpenseFragment" >
         <argument
             android:name="tripId"
@@ -72,7 +72,7 @@
     </fragment>
     <fragment
         android:id="@+id/editTripFragment"
-        android:name="com.example.mexpense.fragments.EditTripFragment"
+        android:name="com.example.mexpense.ui.fragments.EditTripFragment"
         android:label="EditTripFragment" >
         <action
             android:id="@+id/action_editTripFragment_to_tripDetailFragment"

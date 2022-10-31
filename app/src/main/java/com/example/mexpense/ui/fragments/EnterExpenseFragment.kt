@@ -1,4 +1,4 @@
-package com.example.mexpense.fragments
+package com.example.mexpense.ui.fragments
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment

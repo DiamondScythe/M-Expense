@@ -1,4 +1,4 @@
-package com.example.mexpense.fragments
+package com.example.mexpense.ui.fragments
 
 import android.app.DatePickerDialog
 import android.content.Context
@@ -11,27 +11,30 @@ import android.widget.CheckBox
 import android.widget.EditText
 import android.widget.Toast
 import androidx.fragment.app.activityViewModels
-import com.example.mexpense.data.trip.Trip
-import com.example.mexpense.databinding.FragmentEnterTripBinding
+import androidx.navigation.fragment.findNavController
+import androidx.navigation.fragment.navArgs
 import com.example.mexpense.MExpenseApplication
 import com.example.mexpense.R
 import com.example.mexpense.TripViewModel
 import com.example.mexpense.TripViewModelFactory
+import com.example.mexpense.databinding.FragmentEditTripBinding
 import java.text.SimpleDateFormat
 import java.util.*
 
 
-class EnterTripFragment : Fragment() {
-    private var _binding: FragmentEnterTripBinding? = null
+class EditTripFragment : Fragment() {
+    private var _binding: FragmentEditTripBinding? = null
     private val binding get() = _binding!!
+
     private val viewModel: TripViewModel by activityViewModels {
         TripViewModelFactory(
             //Use the database instance you created in one of the previous tasks to call the itemDao constructor.
             (activity?.application as MExpenseApplication).database.tripDao()
         )
     }
-    lateinit var trip: Trip
     private var tripRisk: String = "No"
+
+    private val navigationArgs: EditTripFragmentArgs by navArgs()
 
     private fun onCheckboxClicked(view: View) {
         if (view is CheckBox) {
@@ -55,7 +58,7 @@ class EnterTripFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        _binding = FragmentEnterTripBinding.inflate(inflater, container, false)
+        _binding = FragmentEditTripBinding.inflate(inflater, container, false)
         return binding.root
     }
 
@@ -67,30 +70,41 @@ class EnterTripFragment : Fragment() {
         )
     }
 
-    private fun addNewItem() {
+    private fun updateItem(id: Int) {
         if (isEntryValid()) {
-            viewModel.addNewTrip(
+            viewModel.updateWithNewTrip(
+                id,
                 binding.tripLocation.text.toString(),
                 binding.tripTime.text.toString(),
                 tripRisk,
                 binding.tripDescription.text.toString(),
-
-
                 )
-            binding.tripLocation.text.clear()
-            binding.tripTime.text.clear()
-            binding.tripDescription.text.clear()
         }
 
-        val action = EnterTripFragmentDirections.actionEnterTripFragmentToSelectionFragment()
-//        findNavController().navigate(action)
+        val action = EditTripFragmentDirections.actionEditTripFragmentToTripDetailFragment(id)
+        findNavController().navigate(action)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        val id = navigationArgs.tripId
+
+        val trip = viewModel.retrieveStaticTrip(id)
+
+        if (trip.tripRiskAssessment.equals("Yes",true)){
+            binding.riskCheckBox.isChecked = true
+        }
+
         binding.apply {
-            binding.ButtonEnter.setOnClickListener {
-                addNewItem()
+            //adding data to the data entry fields
+            tripLocation.setText(trip.tripLocation)
+            tripTime.setText(trip.tripTime)
+            tripDescription.setText(trip.tripDescription)
+
+            //setting up buttons and stuff
+            ButtonEnter.setOnClickListener {
+                updateItem(id)
             }
             binding.tripTime.transformIntoDatePicker(requireContext(), "MM/dd/yyyy", Date())
             binding.riskCheckBox.setOnCheckedChangeListener { view, _ ->

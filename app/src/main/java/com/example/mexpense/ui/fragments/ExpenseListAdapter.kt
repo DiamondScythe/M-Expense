@@ -1,4 +1,4 @@
-package com.example.mexpense.fragments
+package com.example.mexpense.ui.fragments
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
