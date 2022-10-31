@@ -1,4 +1,4 @@
-package com.example.mexpense
+package com.example.mexpense.fragments
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
@@ -6,9 +6,7 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.example.mexpense.data.expense.Expense
-import com.example.mexpense.data.trip.Trip
 import com.example.mexpense.databinding.ExpenseListItemBinding
-import com.example.mexpense.databinding.TripListItemBinding
 
 class ExpenseListAdapter(private val OnItemClicked: (Expense) -> Unit ):
     ListAdapter<Expense, ExpenseListAdapter.ExpenseViewHolder>(DiffCallback){

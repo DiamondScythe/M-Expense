@@ -1,4 +1,4 @@
-package com.example.mexpense
+package com.example.mexpense.fragments
 
 import android.app.DatePickerDialog
 import android.content.Context
@@ -13,6 +13,10 @@ import android.widget.Toast
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
+import com.example.mexpense.MExpenseApplication
+import com.example.mexpense.R
+import com.example.mexpense.TripViewModel
+import com.example.mexpense.TripViewModelFactory
 import com.example.mexpense.databinding.FragmentEditTripBinding
 import java.text.SimpleDateFormat
 import java.util.*

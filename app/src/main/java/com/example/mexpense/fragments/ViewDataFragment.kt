@@ -1,9 +1,7 @@
-package com.example.mexpense
+package com.example.mexpense.fragments
 
 import android.os.Bundle
 import android.view.*
-import android.widget.AdapterView
-import android.widget.Toast
 import androidx.appcompat.widget.SearchView
 import androidx.core.view.MenuHost
 import androidx.core.view.MenuProvider
@@ -11,7 +9,7 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.Lifecycle
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.example.mexpense.data.trip.Trip
+import com.example.mexpense.*
 import com.example.mexpense.databinding.FragmentViewDataBinding
 
 
