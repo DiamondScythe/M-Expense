@@ -25,6 +25,9 @@ interface TripDao {
     @Query("SELECT * from trip ORDER BY location ASC")
     fun getTrips(): Flow<List<Trip>>
 
+    @Query("SELECT * from trip")
+    fun getStaticTrips(id: Int): Trip
+
     @Query("SELECT * from trip WHERE id = :id")
     fun getStaticTrip(id: Int): Trip
 //    @Transaction
