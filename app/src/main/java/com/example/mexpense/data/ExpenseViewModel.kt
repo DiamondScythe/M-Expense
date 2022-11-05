@@ -46,6 +46,10 @@ class ExpenseViewModel(private val expenseDao: ExpenseDao): ViewModel() {
         return true
     }
 
+    fun retrieveStaticExpenses(): List<Expense>{
+        return expenseDao.getStaticExpenses()
+    }
+
     fun addNewExpense(expenseName: String, expenseDetails: String, expenseType: String,
                       expenseAmount: Int, tripOwnerId: Int){
         val newExpense = getNewExpenseEntry(expenseName, expenseDetails, expenseType,

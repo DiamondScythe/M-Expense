@@ -21,6 +21,9 @@ interface ExpenseDao {
     @Query("SELECT * from expense ORDER BY name ASC")
     fun getExpenses(): Flow<List<Expense>>
 
+    @Query("SELECT * from expense")
+    fun getStaticExpenses(): List<Expense>
+
     @Query("SELECT * from expense WHERE tripOwnerId = :tripId")
     fun getTripExpenses(tripId: Int): Flow<List<Expense>>
 

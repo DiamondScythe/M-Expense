@@ -1,6 +1,7 @@
 package com.example.mexpense.ui.fragments
 
 import android.os.Bundle
+import android.provider.Settings.Global
 import android.view.*
 import androidx.appcompat.widget.SearchView
 import androidx.core.view.MenuHost
@@ -10,7 +11,18 @@ import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.Lifecycle
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.mexpense.*
+import com.example.mexpense.data.BackupViewModel
+import com.example.mexpense.data.ExpenseViewModel
+import com.example.mexpense.data.ExpenseViewModelFactory
+import com.example.mexpense.data.expense.Expense
+import com.example.mexpense.data.trip.Trip
 import com.example.mexpense.databinding.FragmentViewDataBinding
+import com.google.firebase.database.FirebaseDatabase
+import com.google.firebase.database.ktx.database
+import com.google.firebase.firestore.ktx.firestore
+import com.google.firebase.ktx.Firebase
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.launch
 
 
 class ViewDataFragment : Fragment() {
@@ -24,6 +36,18 @@ class ViewDataFragment : Fragment() {
             (activity?.application as MExpenseApplication).database.tripDao()
         )
     }
+
+    private val expenseViewModel: ExpenseViewModel by activityViewModels {
+        ExpenseViewModelFactory(
+            (activity?.application as MExpenseApplication).database2.expenseDao()
+        )
+    }
+
+    private var db = Firebase.database
+    val dbRefTrip = FirebaseDatabase.getInstance().getReference("Trips")
+    val dbRefExpense = FirebaseDatabase.getInstance().getReference("Expenses")
+
+    private val backupViewModel: BackupViewModel by activityViewModels()
 
     suspend fun deleteStuff(tripId: Int){
         viewModel.removeTrip(tripId)
@@ -50,6 +74,9 @@ class ViewDataFragment : Fragment() {
             }
         }
         binding.recyclerView.layoutManager = LinearLayoutManager(this.context)
+        binding.uploadButton.setOnClickListener{
+            backupData()
+        }
 
         //register the items in recylcer view for context menu (long click menu)
         registerForContextMenu(binding.recyclerView)
@@ -99,5 +126,15 @@ class ViewDataFragment : Fragment() {
             viewLifecycleOwner,
             Lifecycle.State.RESUMED
         )
+    }
+
+    private fun backupData() {
+        GlobalScope.launch{
+            val allTrips: List<Trip> = viewModel.retrieveStaticTrips()
+            dbRefTrip.setValue(allTrips)
+
+            val allExpenses: List<Expense> = expenseViewModel.retrieveStaticExpenses()
+            dbRefExpense.setValue(allExpenses)
+        }
     }
 }

@@ -76,6 +76,10 @@ class TripViewModel(private val tripDao: TripDao) : ViewModel() {
         return tripDao.getTrip(id).asLiveData()
     }
 
+    fun retrieveStaticTrips(): List<Trip>{
+        return tripDao.getStaticTrips()
+    }
+
     fun retrieveStaticTrip(id: Int): Trip {
         return tripDao.getStaticTrip(id)
     }

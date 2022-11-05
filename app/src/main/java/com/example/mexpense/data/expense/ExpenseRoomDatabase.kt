@@ -21,7 +21,6 @@ abstract class ExpenseRoomDatabase : RoomDatabase() {
                     ExpenseRoomDatabase::class.java,
                     "expense_database"
                 )   // Wipes and rebuilds instead of migrating if no Migration object.
-                    // Migration is not part of this codelab.
                     .fallbackToDestructiveMigration()
                     .build()
                 INSTANCE = instance

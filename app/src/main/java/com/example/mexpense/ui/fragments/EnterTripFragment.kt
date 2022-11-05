@@ -74,9 +74,7 @@ class EnterTripFragment : Fragment() {
                 binding.tripTime.text.toString(),
                 tripRisk,
                 binding.tripDescription.text.toString(),
-
-
-                )
+            )
             binding.tripLocation.text.clear()
             binding.tripTime.text.clear()
             binding.tripDescription.text.clear()
