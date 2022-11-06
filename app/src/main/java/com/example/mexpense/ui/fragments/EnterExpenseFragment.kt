@@ -1,21 +1,28 @@
 package com.example.mexpense.ui.fragments
 
+import android.app.Activity
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.AdapterView
+import android.widget.ArrayAdapter
+import android.widget.Spinner
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.example.mexpense.MExpenseApplication
+import com.example.mexpense.R
 import com.example.mexpense.data.ExpenseViewModel
 import com.example.mexpense.data.ExpenseViewModelFactory
 import com.example.mexpense.data.expense.Expense
 import com.example.mexpense.databinding.FragmentEnterExpenseBinding
+import kotlinx.coroutines.NonDisposableHandle.parent
 
+var currentExpenseType: String = ""
 
-class EnterExpenseFragment : Fragment() {
+class EnterExpenseFragment : Fragment(), AdapterView.OnItemSelectedListener {
     private var _binding: FragmentEnterExpenseBinding? = null
     private val binding get() = _binding!!
     private val viewModel: ExpenseViewModel by activityViewModels{
@@ -40,7 +47,6 @@ class EnterExpenseFragment : Fragment() {
         return viewModel.isEntryValid(
             binding.expenseName.text.toString(),
             binding.expenseDetails.text.toString(),
-            binding.expenseType.text.toString(),
             binding.expenseAmount.text.toString().toInt(),
             navigationArgs.tripId
             )
@@ -51,14 +57,13 @@ class EnterExpenseFragment : Fragment() {
             viewModel.addNewExpense(
                 binding.expenseName.text.toString(),
                 binding.expenseDetails.text.toString(),
-                binding.expenseType.text.toString(),
+                currentExpenseType,
                 binding.expenseAmount.text.toString().toInt(),
                 navigationArgs.tripId
             )
         }
         binding.expenseName.text.clear()
         binding.expenseDetails.text.clear()
-        binding.expenseType.text.clear()
         binding.expenseAmount.text.clear()
         val action = EnterExpenseFragmentDirections.actionEnterExpenseFragmentToTripDetailFragment(navigationArgs.tripId)
         findNavController().navigate(action)
@@ -66,6 +71,19 @@ class EnterExpenseFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        // Create an ArrayAdapter using the string array and a default spinner layout
+        ArrayAdapter.createFromResource(
+            requireContext(),
+            R.array.expense_types,
+            android.R.layout.simple_spinner_item
+        ).also { adapter ->
+            // Specify the layout to use when the list of choices appears
+            adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
+            // Apply the adapter to the spinner
+            binding.expenseType.adapter = adapter
+            binding.expenseType.onItemSelectedListener = this
+        }
+
         binding.apply{
             binding.ButtonEnter.setOnClickListener{
                 addNewItem()
@@ -73,17 +91,11 @@ class EnterExpenseFragment : Fragment() {
         }
     }
 
+    override fun onItemSelected(parent: AdapterView<*>, view: View?, pos: Int, id: Long) {
+        currentExpenseType = parent.getItemAtPosition(pos).toString()
+    }
 
-//    fun uploadData(){
-//        binding?.apply{
-//            var inputId = binding?.EditTextId?.text.toString().toInt()
-//            var inputLocation = binding?.EditTextLocation?.text.toString()
-//            var inputTime = binding?.EditTextTime?.text.toString()
-//            database.child("Trip").child(inputId.toString()).setValue(Trip(inputLocation, inputTime))
-//            binding?.EditTextId?.setText("")
-//            binding?.EditTextTime?.setText("")
-//            binding?.EditTextLocation?.setText("")
-//        }
-//    }
-
+    override fun onNothingSelected(p0: AdapterView<*>?) {
+        TODO("Not yet implemented")
+    }
 }
