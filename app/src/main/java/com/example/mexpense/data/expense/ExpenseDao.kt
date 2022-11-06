@@ -29,4 +29,13 @@ interface ExpenseDao {
 
     @Query("SELECT tripOwnerId from expense WHERE id = :id")
     fun getTripOwnerId(id: Int): Int
+
+    @Query("SELECT type from expense WHERE id = :id")
+    fun getExpenseType(id: Int): String
+
+    @Query("SELECT * from expense WHERE id = :id")
+    fun getStaticExpense(id: Int): Expense
+
+    @Query("DELETE from expense where id = :id")
+    fun delete2(id: Int)
 }

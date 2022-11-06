@@ -54,5 +54,7 @@ class ExpenseDetailFragment : Fragment() {
             expense = selectedExpense
             bind(expense)
         }
+//        val expense = expenseViewModel.retrieveStaticExpense(id)
+//        bind(expense)
     }
 }

@@ -12,8 +12,11 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.mexpense.data.expense.Expense
 import com.example.mexpense.data.trip.Trip
 import com.example.mexpense.databinding.ExpenseListItemBinding
+import com.google.android.material.dialog.MaterialAlertDialogBuilder
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.launch
 
-class ExpenseListAdapter(val parentFragment: Fragment):
+class ExpenseListAdapter(val parentFragment: TripDetailFragment):
     ListAdapter<Expense, ExpenseListAdapter.ExpenseViewHolder>(DiffCallback), Filterable{
 
     private var expenseList = mutableListOf<Expense>()
@@ -60,7 +63,46 @@ class ExpenseListAdapter(val parentFragment: Fragment):
         holder.itemView.setOnClickListener{
             onItemClicked(expenseId)
         }
+        holder.itemView.setOnCreateContextMenuListener { contextMenu, _, _ ->
+            contextMenu.add("View details").setOnMenuItemClickListener {
+                onItemClicked(expenseId)
+                true
+            }
+            contextMenu.add("Edit").setOnMenuItemClickListener {
+                navigateToEdit(expenseId)
+                true
+            }
+            contextMenu.add("Delete").setOnMenuItemClickListener {
+                showConfirmDialog(expenseId)
+                true
+            }
+        }
         holder.bind(current)
+    }
+
+    private fun showConfirmDialog(expenseId: Int) {
+        MaterialAlertDialogBuilder(parentFragment.requireContext())
+            .setTitle("Expense deletion")
+            .setMessage("Are you sure you want to delete this Expense?")
+            .setCancelable(false)
+            .setNegativeButton("No") { dialog , _ ->
+                dialog.dismiss()
+            }
+            .setPositiveButton("Yes") { dialog , _ ->
+                GlobalScope.launch {
+                    deleteItem(expenseId)
+                }
+            }
+            .show()
+    }
+
+    private suspend fun deleteItem(expenseId: Int) {
+        parentFragment.deleteStuff(expenseId)
+    }
+
+    private fun navigateToEdit(expenseId: Int) {
+        val action = TripDetailFragmentDirections.actionTripDetailFragmentToEditExpenseFragment(expenseId)
+        parentFragment.findNavController().navigate(action)
     }
 
     fun setData(list: List<Expense>?){

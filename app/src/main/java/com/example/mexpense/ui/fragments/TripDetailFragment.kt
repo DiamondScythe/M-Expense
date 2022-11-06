@@ -47,6 +47,9 @@ class TripDetailFragment : Fragment() {
     }
 
     private val navigationArgs: TripDetailFragmentArgs by navArgs()
+    suspend fun deleteStuff(expenseId: Int){
+        expenseViewModel.removeExpense(expenseId)
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -55,6 +58,8 @@ class TripDetailFragment : Fragment() {
     ): View? {
         _binding = FragmentTripDetailBinding.inflate(inflater, container, false)
         return binding.root    }
+
+
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)

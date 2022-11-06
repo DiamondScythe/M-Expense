@@ -61,6 +61,9 @@
         <action
             android:id="@+id/action_tripDetailFragment_to_expenseDetailFragment"
             app:destination="@id/expenseDetailFragment" />
+        <action
+            android:id="@+id/action_tripDetailFragment_to_editExpenseFragment"
+            app:destination="@id/editExpenseFragment" />
     </fragment>
     <fragment
         android:id="@+id/enterExpenseFragment"
@@ -97,5 +100,19 @@
         <argument
             android:name="expenseId"
             app:argType="integer" />
+    </fragment>
+    <fragment
+        android:id="@+id/editExpenseFragment"
+        android:name="com.example.mexpense.ui.fragments.EditExpenseFragment"
+        android:label="fragment_edit_expense"
+        tools:layout="@layout/fragment_edit_expense" >
+        <argument
+            android:name="expenseId"
+            app:argType="integer" />
+        <action
+            android:id="@+id/action_editExpenseFragment_to_expenseDetailFragment"
+            app:destination="@id/expenseDetailFragment"
+            app:popUpTo="@id/editExpenseFragment"
+            app:popUpToInclusive="true"/>
     </fragment>
 </navigation>
