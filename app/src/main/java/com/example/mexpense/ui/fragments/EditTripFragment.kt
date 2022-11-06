@@ -82,7 +82,6 @@ class EditTripFragment : Fragment() {
         }
 
         val action = EditTripFragmentDirections.actionEditTripFragmentToTripDetailFragment(id)
-        //findNavController().popBackStack()
         findNavController().navigate(action)
     }
 

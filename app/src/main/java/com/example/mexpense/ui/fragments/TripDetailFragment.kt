@@ -78,5 +78,6 @@ class TripDetailFragment : Fragment() {
             val action = TripDetailFragmentDirections.actionTripDetailFragmentToEnterExpenseFragment(navigationArgs.tripId)
             this.findNavController().navigate(action)
         }
+
     }
 }
