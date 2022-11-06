@@ -65,9 +65,7 @@ class TripDetailFragment : Fragment() {
             trip = selectedItem
             bind(trip)
         }
-        val adapter = ExpenseListAdapter {
-            //passes the lambda for OnItemClicked
-        }
+        val adapter = ExpenseListAdapter(this)
         binding.recyclerView.adapter = adapter
         expenseViewModel.retrieveTripExpense(id).observe(this.viewLifecycleOwner) { expenses ->
             //This will update the RecyclerView with the new items on the list.

@@ -3,6 +3,7 @@ package com.example.mexpense.data
 import androidx.lifecycle.*
 import com.example.mexpense.data.expense.Expense
 import com.example.mexpense.data.expense.ExpenseDao
+import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.launch
 
 class ExpenseViewModel(private val expenseDao: ExpenseDao): ViewModel() {
@@ -55,6 +56,10 @@ class ExpenseViewModel(private val expenseDao: ExpenseDao): ViewModel() {
         val newExpense = getNewExpenseEntry(expenseName, expenseDetails, expenseType,
             expenseAmount, tripOwnerId)
         insertExpense(newExpense)
+    }
+
+    fun retrieveExpense(expenseId: Int): LiveData<Expense> {
+        return expenseDao.getExpense(expenseId).asLiveData()
     }
 }
 

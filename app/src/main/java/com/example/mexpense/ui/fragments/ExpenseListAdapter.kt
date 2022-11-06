@@ -4,6 +4,8 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import android.widget.Filter
 import android.widget.Filterable
+import androidx.fragment.app.Fragment
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
@@ -11,7 +13,7 @@ import com.example.mexpense.data.expense.Expense
 import com.example.mexpense.data.trip.Trip
 import com.example.mexpense.databinding.ExpenseListItemBinding
 
-class ExpenseListAdapter(private val OnItemClicked: (Expense) -> Unit ):
+class ExpenseListAdapter(val parentFragment: Fragment):
     ListAdapter<Expense, ExpenseListAdapter.ExpenseViewHolder>(DiffCallback), Filterable{
 
     private var expenseList = mutableListOf<Expense>()
@@ -54,8 +56,9 @@ class ExpenseListAdapter(private val OnItemClicked: (Expense) -> Unit ):
 
     override fun onBindViewHolder(holder: ExpenseViewHolder, position: Int) {
         val current = getItem(position)
+        val expenseId = current.expenseId
         holder.itemView.setOnClickListener{
-            OnItemClicked(current)
+            onItemClicked(expenseId)
         }
         holder.bind(current)
     }
@@ -67,6 +70,11 @@ class ExpenseListAdapter(private val OnItemClicked: (Expense) -> Unit ):
 
     override fun getFilter(): Filter {
         return customFilter
+    }
+
+    private fun onItemClicked(expenseId: Int){
+        val action = TripDetailFragmentDirections.actionTripDetailFragmentToExpenseDetailFragment(expenseId)
+        parentFragment.findNavController().navigate(action)
     }
 
     private val customFilter = object : Filter(){
