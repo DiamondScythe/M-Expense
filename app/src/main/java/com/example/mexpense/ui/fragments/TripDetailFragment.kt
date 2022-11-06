@@ -1,15 +1,18 @@
 package com.example.mexpense.ui.fragments
 
 import android.os.Bundle
+import android.view.*
+import androidx.appcompat.widget.SearchView
 import androidx.fragment.app.Fragment
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
+import androidx.core.view.MenuHost
+import androidx.core.view.MenuProvider
 import androidx.fragment.app.activityViewModels
+import androidx.lifecycle.Lifecycle
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.mexpense.MExpenseApplication
+import com.example.mexpense.R
 import com.example.mexpense.TripViewModel
 import com.example.mexpense.TripViewModelFactory
 import com.example.mexpense.data.ExpenseViewModel
@@ -69,7 +72,7 @@ class TripDetailFragment : Fragment() {
         expenseViewModel.retrieveTripExpense(id).observe(this.viewLifecycleOwner) { expenses ->
             //This will update the RecyclerView with the new items on the list.
             expenses.let {
-                adapter.submitList(it)
+                adapter.setData(it)
             }
         }
         binding.recyclerView.layoutManager = LinearLayoutManager(this.context)
@@ -79,5 +82,53 @@ class TripDetailFragment : Fragment() {
             this.findNavController().navigate(action)
         }
 
+        //register the items in recylcer view for context menu (long click menu)
+        registerForContextMenu(binding.recyclerView)
+
+        //setting up menu search item
+        val menuHost: MenuHost = requireActivity()
+        // Add menu items without using the Fragment Menu APIs
+        // Note how we can tie the MenuProvider to the viewLifecycleOwner
+        // and an optional Lifecycle.State (here, RESUMED) to indicate when
+        // the menu should be visible
+        menuHost.addMenuProvider(
+            object : MenuProvider {
+                override fun onCreateMenu(menu: Menu, menuInflater: MenuInflater) {
+                    // Add menu items here
+                    menuInflater.inflate(R.menu.menu_trip, menu)
+                    val searchItem = menu.findItem(R.id.action_search)
+                    val searchView = searchItem.actionView as SearchView?
+                    searchView?.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
+                        override fun onQueryTextSubmit(query: String?): Boolean {
+                            if (query != null) {
+                                adapter.filter.filter(query)
+                            }
+                            return true
+                        }
+
+                        //this is where we're going to implement the filter logic
+                        override fun onQueryTextChange(newText: String?): Boolean {
+                            if (newText != null) {
+                                adapter.filter.filter(newText)
+                            }
+                            return true
+                        }
+                    })
+                }
+
+                override fun onMenuItemSelected(menuItem: MenuItem): Boolean {
+                    // Handle the menu selection. getting search view of our item.
+                    return when (menuItem.itemId) {
+                        R.id.action_search -> {
+                            false
+                        }
+                        else -> false
+                    }
+                }
+            },
+            // this line makes the menu item lifecycle aware
+            viewLifecycleOwner,
+            Lifecycle.State.RESUMED
+        )
     }
 }

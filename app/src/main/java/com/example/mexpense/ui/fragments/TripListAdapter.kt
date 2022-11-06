@@ -68,7 +68,6 @@ class TripListAdapter(val parentFragment: ViewDataFragment) :
                 dialog.dismiss()
             }
             .setPositiveButton("Yes") { dialog , _ ->
-                //band-aid solution. Needs replacement
                 GlobalScope.launch {
                     deleteItem(tripId)
                 }
@@ -102,7 +101,7 @@ class TripListAdapter(val parentFragment: ViewDataFragment) :
 
         fun bind(trip: Trip) {
             binding.apply {
-                tripLocation.text = trip.tripLocation
+                tripName.text = trip.tripName
                 tripTime.text = trip.tripTime
             }
         }
@@ -116,7 +115,7 @@ class TripListAdapter(val parentFragment: ViewDataFragment) :
             }
 
             override fun areContentsTheSame(oldItem: Trip, newItem: Trip): Boolean {
-                return oldItem.tripLocation == newItem.tripLocation
+                return oldItem.tripName == newItem.tripName
             }
         }
     }
@@ -132,7 +131,7 @@ class TripListAdapter(val parentFragment: ViewDataFragment) :
                 filteredList.addAll(tripList)
             } else {
                 for (item in tripList) {
-                    if (constraint.toString().lowercase() in item.tripLocation.lowercase()) {
+                    if (constraint.toString().lowercase() in item.tripName.lowercase()) {
                         filteredList.add(item)
                     }
                 }

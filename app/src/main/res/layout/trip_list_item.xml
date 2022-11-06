@@ -9,7 +9,7 @@
     android:descendantFocusability="blocksDescendants">
 
     <TextView
-        android:id="@+id/tripLocation"
+        android:id="@+id/tripName"
         style="@style/Widget.Inventory.ListItemTextView"
         android:layout_width="180dp"
         android:layout_marginStart="8dp"
