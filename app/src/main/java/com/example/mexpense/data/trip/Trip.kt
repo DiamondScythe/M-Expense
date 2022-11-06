@@ -9,6 +9,8 @@ data class Trip(
     @PrimaryKey(autoGenerate = true)
     @ColumnInfo(name = "id")
     val tripId: Int = 0,
+    @ColumnInfo(name = "name")
+    val tripName: String = "",
     @ColumnInfo(name = "location")
     val tripLocation: String = "",
     @ColumnInfo(name = "time")

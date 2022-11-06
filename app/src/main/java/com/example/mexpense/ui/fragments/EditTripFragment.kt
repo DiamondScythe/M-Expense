@@ -64,6 +64,7 @@ class EditTripFragment : Fragment() {
 
     private fun isEntryValid(): Boolean {
         return viewModel.isEntryValid(
+            binding.tripName.text.toString(),
             binding.tripLocation.text.toString(),
             binding.tripTime.text.toString(),
             tripRisk
@@ -74,6 +75,7 @@ class EditTripFragment : Fragment() {
         if (isEntryValid()) {
             viewModel.updateWithNewTrip(
                 id,
+                binding.tripName.text.toString(),
                 binding.tripLocation.text.toString(),
                 binding.tripTime.text.toString(),
                 tripRisk,
@@ -98,6 +100,7 @@ class EditTripFragment : Fragment() {
 
         binding.apply {
             //adding data to the data entry fields
+            tripName.setText(trip.tripName)
             tripLocation.setText(trip.tripLocation)
             tripTime.setText(trip.tripTime)
             tripDescription.setText(trip.tripDescription)

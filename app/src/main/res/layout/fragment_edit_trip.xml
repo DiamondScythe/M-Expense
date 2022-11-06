@@ -7,39 +7,41 @@
     tools:context=".ui.fragments.EditTripFragment">
 
     <EditText
+        android:id="@+id/tripName"
+        android:layout_width="285dp"
+        android:layout_height="75dp"
+        android:hint="Trip Name"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.523"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.157"></EditText>
+
+    <EditText
         android:id="@+id/tripLocation"
         android:layout_width="285dp"
         android:layout_height="75dp"
         android:hint="Location"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.102"></EditText>
+        app:layout_constraintStart_toStartOf="@+id/tripName"
+        app:layout_constraintTop_toBottomOf="@+id/tripName"></EditText>
+
 
     <EditText
         android:id="@+id/tripTime"
-        android:layout_width="288dp"
+        android:layout_width="117dp"
         android:layout_height="90dp"
         android:hint="Time"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.512"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.255"></EditText>
+        app:layout_constraintStart_toStartOf="@id/tripLocation"
+        app:layout_constraintTop_toBottomOf="@+id/tripLocation"></EditText>
 
     <EditText
         android:id="@+id/tripDescription"
-        android:layout_width="288dp"
-        android:layout_height="90dp"
+        android:layout_width="285dp"
+        android:layout_height="75dp"
         android:hint="Description"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.512"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.567"></EditText>
+        app:layout_constraintStart_toStartOf="@+id/tripTime"
+        app:layout_constraintTop_toBottomOf="@id/tripTime"></EditText>
 
     <Button
         android:id="@+id/ButtonEnter"
@@ -54,15 +56,11 @@
 
     <CheckBox
         android:id="@+id/riskCheckBox"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Risk Assessment"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.492"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.415" />
+        android:layout_width="153dp"
+        android:layout_height="79dp"
+        android:text="Requrie Risk Assessment"
+        app:layout_constraintRight_toRightOf="@id/tripLocation"
+        app:layout_constraintTop_toBottomOf="@id/tripLocation" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

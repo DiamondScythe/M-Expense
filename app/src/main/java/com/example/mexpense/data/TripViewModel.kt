@@ -31,9 +31,10 @@ class TripViewModel(private val tripDao: TripDao) : ViewModel() {
         }
     }
 
-    private fun getNewTripEntry(tripLocation: String, tripTime: String,
+    private fun getNewTripEntry(tripName: String ,tripLocation: String, tripTime: String,
                                 tripRiskAssessment: String, tripDescription: String): Trip {
         return Trip(
+            tripName = tripName,
             tripLocation = tripLocation,
             tripTime = tripTime,
             tripRiskAssessment = tripRiskAssessment,
@@ -41,10 +42,11 @@ class TripViewModel(private val tripDao: TripDao) : ViewModel() {
         )
     }
 
-    private fun getNewTripEditEntry(tripId: Int, tripLocation: String, tripTime: String,
+    private fun getNewTripEditEntry(tripId: Int, tripName: String, tripLocation: String, tripTime: String,
                                 tripRiskAssessment: String, tripDescription: String): Trip {
         return Trip(
             tripId = tripId,
+            tripName = tripName,
             tripLocation = tripLocation,
             tripTime = tripTime,
             tripRiskAssessment = tripRiskAssessment,
@@ -52,21 +54,22 @@ class TripViewModel(private val tripDao: TripDao) : ViewModel() {
         )
     }
 
-    fun addNewTrip(tripLocation: String, tripTime: String,
+    fun addNewTrip(tripName: String, tripLocation: String, tripTime: String,
                    tripRiskAssessment: String, tripDescription: String) {
-        val newTrip = getNewTripEntry(tripLocation, tripTime, tripRiskAssessment, tripDescription)
+        val newTrip = getNewTripEntry(tripName, tripLocation, tripTime, tripRiskAssessment, tripDescription)
         insertTrip(newTrip)
     }
 
-    fun updateWithNewTrip(tripId: Int, tripLocation: String, tripTime: String,
+    fun updateWithNewTrip(tripId: Int, tripName: String, tripLocation: String, tripTime: String,
                  tripRiskAssessment: String, tripDescription: String) {
-        val newTrip = getNewTripEditEntry(tripId, tripLocation, tripTime, tripRiskAssessment, tripDescription)
+        val newTrip = getNewTripEditEntry(tripId, tripName, tripLocation, tripTime, tripRiskAssessment, tripDescription)
         updateTrip(newTrip)
     }
 
     //check if the input box is empty or not
-    fun isEntryValid(tripLocation: String, tripTime: String, tripRiskAssessment: String): Boolean {
-        if (tripLocation.isBlank() || tripTime.isBlank() || tripRiskAssessment.isBlank()) {
+    fun isEntryValid(tripName: String, tripLocation: String, tripTime: String, tripRiskAssessment: String): Boolean {
+        if (tripName.isBlank() || tripLocation.isBlank() ||
+            tripTime.isBlank() || tripRiskAssessment.isBlank()) {
             return false
         }
         return true

@@ -61,8 +61,8 @@ class TripListAdapter(val parentFragment: ViewDataFragment) :
 
     private fun showConfirmDialog(tripId: Int) {
         MaterialAlertDialogBuilder(parentFragment.requireContext())
-            .setTitle("Record deletion")
-            .setMessage("do u really wanna delete this?")
+            .setTitle("Trip deletion")
+            .setMessage("Are you sure you want to delete this Trip?")
             .setCancelable(false)
             .setNegativeButton("No") { dialog , _ ->
                 dialog.dismiss()

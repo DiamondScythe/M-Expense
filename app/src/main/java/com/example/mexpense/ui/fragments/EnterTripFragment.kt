@@ -61,6 +61,7 @@ class EnterTripFragment : Fragment() {
 
     private fun isEntryValid(): Boolean {
         return viewModel.isEntryValid(
+            binding.tripName.text.toString(),
             binding.tripLocation.text.toString(),
             binding.tripTime.text.toString(),
             tripRisk
@@ -70,11 +71,13 @@ class EnterTripFragment : Fragment() {
     private fun addNewItem() {
         if (isEntryValid()) {
             viewModel.addNewTrip(
+                binding.tripName.text.toString(),
                 binding.tripLocation.text.toString(),
                 binding.tripTime.text.toString(),
                 tripRisk,
                 binding.tripDescription.text.toString(),
             )
+            binding.tripName.text.clear()
             binding.tripLocation.text.clear()
             binding.tripTime.text.clear()
             binding.tripDescription.text.clear()
