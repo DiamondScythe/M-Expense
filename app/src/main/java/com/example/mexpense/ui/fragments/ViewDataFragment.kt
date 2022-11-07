@@ -1,8 +1,11 @@
 package com.example.mexpense.ui.fragments
 
 import android.os.Bundle
+import android.os.Handler
+import android.os.Looper
 import android.provider.Settings.Global
 import android.view.*
+import android.widget.Toast
 import androidx.appcompat.widget.SearchView
 import androidx.core.view.MenuHost
 import androidx.core.view.MenuProvider
@@ -136,5 +139,7 @@ class ViewDataFragment : Fragment() {
             val allExpenses: List<Expense> = expenseViewModel.retrieveStaticExpenses()
             dbRefExpense.setValue(allExpenses)
         }
+        Toast.makeText(requireContext(), "Uploaded!", Toast.LENGTH_SHORT).show()
     }
+
 }
