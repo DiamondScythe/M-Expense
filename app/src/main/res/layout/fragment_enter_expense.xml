@@ -55,7 +55,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/expenseAmount"
         android:layout_marginTop="20dp"
-        android:text="Enter">
+        android:text="Add">
     </Button>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

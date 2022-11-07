@@ -141,5 +141,4 @@ class ViewDataFragment : Fragment() {
         }
         Toast.makeText(requireContext(), "Uploaded!", Toast.LENGTH_SHORT).show()
     }
-
 }

@@ -24,6 +24,9 @@
         <action
             android:id="@+id/action_enterTripFragment_to_selectionFragment"
             app:destination="@id/selectionFragment" />
+        <action
+            android:id="@+id/action_enterTripFragment_to_confirmTripFragment"
+            app:destination="@id/confirmTripFragment" />
     </fragment>
     <fragment
         android:id="@+id/viewDataFragment"
@@ -113,6 +116,30 @@
             android:id="@+id/action_editExpenseFragment_to_expenseDetailFragment"
             app:destination="@id/expenseDetailFragment"
             app:popUpTo="@id/editExpenseFragment"
+            app:popUpToInclusive="true" />
+    </fragment>
+    <fragment
+        android:id="@+id/confirmTripFragment"
+        android:name="com.example.mexpense.ui.fragments.ConfirmTripFragment"
+        android:label="Confirm"
+        tools:layout="@layout/fragment_confirm_trip" >
+        <argument
+            android:name="tripName"
+            app:argType="string" />
+        <argument
+            android:name="tripLocation"
+            app:argType="string" />
+        <argument
+            android:name="tripTime"
+            app:argType="string" />
+        <argument
+            android:name="tripRisk"
+            app:argType="string" />
+        <argument android:name="tripDescription" />
+        <action
+            android:id="@+id/action_confirmTripFragment_to_selectionFragment"
+            app:destination="@id/selectionFragment"
+            app:popUpTo="@id/selectionFragment"
             app:popUpToInclusive="true" />
     </fragment>
 </navigation>

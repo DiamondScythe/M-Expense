@@ -11,6 +11,7 @@ import android.widget.CheckBox
 import android.widget.EditText
 import android.widget.Toast
 import androidx.fragment.app.activityViewModels
+import androidx.navigation.fragment.findNavController
 import com.example.mexpense.data.trip.Trip
 import com.example.mexpense.databinding.FragmentEnterTripBinding
 import com.example.mexpense.MExpenseApplication
@@ -70,21 +71,30 @@ class EnterTripFragment : Fragment() {
 
     private fun addNewItem() {
         if (isEntryValid()) {
-            viewModel.addNewTrip(
+//            viewModel.addNewTrip(
+//                binding.tripName.text.toString(),
+//                binding.tripLocation.text.toString(),
+//                binding.tripTime.text.toString(),
+//                tripRisk,
+//                binding.tripDescription.text.toString(),
+//            )
+//            binding.tripName.text.clear()
+//            binding.tripLocation.text.clear()
+//            binding.tripTime.text.clear()
+//            binding.tripDescription.text.clear()
+
+            val action = EnterTripFragmentDirections.actionEnterTripFragmentToConfirmTripFragment(
                 binding.tripName.text.toString(),
                 binding.tripLocation.text.toString(),
                 binding.tripTime.text.toString(),
                 tripRisk,
                 binding.tripDescription.text.toString(),
             )
-            binding.tripName.text.clear()
-            binding.tripLocation.text.clear()
-            binding.tripTime.text.clear()
-            binding.tripDescription.text.clear()
+            findNavController().navigate(action)
+
         }
 
-        val action = EnterTripFragmentDirections.actionEnterTripFragmentToSelectionFragment()
-//        findNavController().navigate(action)
+
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
