@@ -41,8 +41,11 @@ class TripDetailFragment : Fragment() {
 
     private fun bind(trip: Trip){
         binding.apply{
-            textView.text = "Location: ${trip.tripLocation}"
-            textView2.text = "Time: ${trip.tripTime}"
+            textViewName.text = trip.tripName
+            textViewDetails.text = trip.tripDescription
+            textViewLocation.text = trip.tripLocation
+            textViewRisk.text = trip.tripRiskAssessment
+            textViewTime.text = trip.tripTime
         }
     }
 

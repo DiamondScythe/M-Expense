@@ -17,11 +17,11 @@
         app:title="Home" />
 
     <TextView
-        android:id="@+id/tripLocation"
+        android:id="@+id/tripName"
         style="@style/Widget.Trip.Header"
         android:layout_marginStart="8dp"
         android:layout_marginTop="80dp"
-        android:text="Location"
+        android:text="Trip name"
         app:layout_constraintEnd_toStartOf="@+id/tripTime"
         app:layout_constraintHorizontal_weight="2"
         app:layout_constraintStart_toStartOf="parent"
@@ -36,7 +36,7 @@
         android:textAlignment="center"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_weight="1"
-        app:layout_constraintStart_toEndOf="@+id/tripLocation"
+        app:layout_constraintStart_toEndOf="@+id/tripName"
         app:layout_constraintTop_toTopOf="parent" />
 
     <View
@@ -46,7 +46,7 @@
         app:layout_constraintBottom_toTopOf="@+id/recyclerView"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tripLocation" />
+        app:layout_constraintTop_toBottomOf="@+id/tripName" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recyclerView"

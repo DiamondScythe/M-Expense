@@ -31,7 +31,10 @@ class ExpenseDetailFragment : Fragment() {
 
     private fun bind(expense: Expense){
         binding.apply{
-            textViewExpenseName.text = expense.expenseName
+            textViewName.text = expense.expenseName
+            textViewDetails.text = expense.expenseDetails
+            textViewType.text = expense.expenseType
+            textViewAmount.text = expense.expenseAmount.toString()
         }
     }
 
