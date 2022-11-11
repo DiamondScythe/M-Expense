@@ -81,10 +81,12 @@ class EditTripFragment : Fragment() {
                 tripRisk,
                 binding.tripDescription.text.toString(),
                 )
+            val action = EditTripFragmentDirections.actionEditTripFragmentToTripDetailFragment(id)
+            findNavController().navigate(action)
         }
-
-        val action = EditTripFragmentDirections.actionEditTripFragmentToTripDetailFragment(id)
-        findNavController().navigate(action)
+        else{
+            Toast.makeText(requireContext(), "Please fill in all the required fields.", Toast.LENGTH_SHORT).show()
+        }
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {

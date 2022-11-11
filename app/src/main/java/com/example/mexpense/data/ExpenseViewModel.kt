@@ -44,10 +44,10 @@ class ExpenseViewModel(private val expenseDao: ExpenseDao): ViewModel() {
 
     fun isEntryValid(
         expenseName: String, expenseDetails: String,
-        expenseAmount: Int, tripOwnerId: Int): Boolean {
+        expenseAmount: String, tripOwnerId: Int): Boolean {
         if (
             expenseName.isBlank() || expenseDetails.isBlank() ||
-        expenseAmount == 0 || tripOwnerId == 0
+        expenseAmount.isBlank() || expenseAmount.toDoubleOrNull() == null ||tripOwnerId == 0
         ) {
             return false
         }

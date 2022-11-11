@@ -81,7 +81,7 @@ class EnterTripFragment : Fragment() {
             findNavController().navigate(action)
         }
         else{
-            Toast.makeText(requireContext(), "Please fill in all the required fields", Toast.LENGTH_SHORT).show()
+            Toast.makeText(requireContext(), "Please fill in all the required fields.", Toast.LENGTH_SHORT).show()
         }
     }
 

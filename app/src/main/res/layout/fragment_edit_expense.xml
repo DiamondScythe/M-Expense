@@ -6,46 +6,101 @@
     android:layout_height="match_parent"
     tools:context=".ui.fragments.EditExpenseFragment">
 
-    <EditText
-        android:id="@+id/expenseName"
-        android:layout_width="285dp"
-        android:layout_height="75dp"
-        android:hint="Expense name"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/expenseNameContainer"
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="100dp"
+        android:layout_marginHorizontal="30dp"
+        app:counterEnabled="true"
+        app:counterMaxLength="20"
+        app:helperText="Required"
+        app:helperTextTextColor="@android:color/holo_red_dark"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.134"></EditText>
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
 
-    <EditText
-        android:id="@+id/expenseDetails"
-        android:layout_width="285dp"
-        android:layout_height="75dp"
-        android:hint="Expense details"
-        app:layout_constraintEnd_toEndOf="parent"
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/expenseName"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:lines="1"
+            android:inputType="text"
+            android:maxLength="20"
+            android:hint="Expense name">
+        </com.google.android.material.textfield.TextInputEditText>
+
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/expenseDetailsContainer"
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:layout_marginHorizontal="30dp"
+        app:counterEnabled="true"
+        app:counterMaxLength="60"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/expenseName"
-        tools:layout_editor_absoluteY="196dp"></EditText>
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/expenseNameContainer">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/expenseDetails"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:lines="1"
+            android:maxLength="60"
+            android:inputType="text"
+            android:hint="Details">
+        </com.google.android.material.textfield.TextInputEditText>
+
+    </com.google.android.material.textfield.TextInputLayout>
 
     <Spinner
         android:id="@+id/expenseType"
-        android:layout_width="285dp"
-        android:layout_height="75dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/expenseDetails"
-        tools:layout_editor_absoluteY="196dp"></Spinner>
+        android:layout_width="170dp"
+        android:layout_height="50dp"
+        android:layout_marginTop="28dp"
+        app:layout_constraintEnd_toEndOf="@id/expenseDetailsContainer"
+        app:layout_constraintTop_toBottomOf="@+id/expenseDetailsContainer"></Spinner>
+
+    <TextView
+        android:layout_width="160dp"
+        android:layout_height="50dp"
+        app:layout_constraintStart_toStartOf="@id/expenseDetailsContainer"
+        app:layout_constraintTop_toBottomOf="@+id/expenseDetailsContainer"
+        android:layout_marginTop="30dp"
+        android:text="Expense type:"
+        android:textSize="22sp"
+        android:textAlignment="center">
+    </TextView>
 
 
-    <EditText
-        android:id="@+id/expenseAmount"
-        android:layout_width="288dp"
-        android:layout_height="90dp"
-        android:hint="Expense Amount"
-        android:inputType="number"
-        app:layout_constraintEnd_toEndOf="parent"
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/expenseAmountContainer"
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:layout_marginHorizontal="30dp"
+        app:helperText="Required"
+        app:helperTextTextColor="@android:color/holo_red_dark"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/expenseType"></EditText>
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/expenseType">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/expenseAmount"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:inputType="number"
+            android:maxLines="1"
+            android:hint="Amount spent">
+        </com.google.android.material.textfield.TextInputEditText>
+
+    </com.google.android.material.textfield.TextInputLayout>
 
     <Button
         android:id="@+id/ButtonEnter"
@@ -53,8 +108,8 @@
         android:layout_height="wrap_content"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/expenseAmount"
-        android:layout_marginTop="20dp"
+        app:layout_constraintTop_toBottomOf="@+id/expenseAmountContainer"
+        android:layout_marginTop="40dp"
         android:text="Enter">
     </Button>
 

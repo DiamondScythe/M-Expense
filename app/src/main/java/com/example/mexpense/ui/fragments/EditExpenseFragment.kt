@@ -7,6 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.AdapterView
 import android.widget.ArrayAdapter
+import android.widget.Toast
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.LiveData
 import androidx.navigation.fragment.findNavController
@@ -23,8 +24,6 @@ class EditExpenseFragment : Fragment(), AdapterView.OnItemSelectedListener {
 
     private var _binding: FragmentEditExpenseBinding? = null
     private val binding get() = _binding!!
-
-    lateinit var expense: Expense
 
     private val viewModel: ExpenseViewModel by activityViewModels{
         ExpenseViewModelFactory(
@@ -51,7 +50,7 @@ class EditExpenseFragment : Fragment(), AdapterView.OnItemSelectedListener {
         return viewModel.isEntryValid(
             binding.expenseName.text.toString(),
             binding.expenseDetails.text.toString(),
-            binding.expenseAmount.text.toString().toInt(),
+            binding.expenseAmount.text.toString(),
             //dummy value
             1
         )
@@ -67,10 +66,12 @@ class EditExpenseFragment : Fragment(), AdapterView.OnItemSelectedListener {
                 binding.expenseAmount.text.toString().toInt(),
                 currentTripOwnerId
             )
+            val action = EditExpenseFragmentDirections.actionEditExpenseFragmentToExpenseDetailFragment(expenseId)
+            findNavController().navigate(action)
         }
-
-        val action = EditExpenseFragmentDirections.actionEditExpenseFragmentToExpenseDetailFragment(expenseId)
-        findNavController().navigate(action)
+        else{
+            Toast.makeText(requireContext(), "Please fill in all the required fields.", Toast.LENGTH_SHORT).show()
+        }
     }
 
 
@@ -82,7 +83,7 @@ class EditExpenseFragment : Fragment(), AdapterView.OnItemSelectedListener {
 //            expense = selectedExpense
 //        }
 
-        expense = viewModel.retrieveStaticExpense(expenseId)
+        val expense = viewModel.retrieveStaticExpense(expenseId)
 
         val currentTripOwnerId = viewModel.retrieveTripOwnerId(expenseId)
         val expenseType = viewModel.retrieveExpenseType(expenseId)

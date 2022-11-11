@@ -9,6 +9,7 @@ import android.view.ViewGroup
 import android.widget.AdapterView
 import android.widget.ArrayAdapter
 import android.widget.Spinner
+import android.widget.Toast
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
@@ -47,7 +48,7 @@ class EnterExpenseFragment : Fragment(), AdapterView.OnItemSelectedListener {
         return viewModel.isEntryValid(
             binding.expenseName.text.toString(),
             binding.expenseDetails.text.toString(),
-            binding.expenseAmount.text.toString().toInt(),
+            binding.expenseAmount.text.toString(),
             navigationArgs.tripId
             )
     }
@@ -61,12 +62,12 @@ class EnterExpenseFragment : Fragment(), AdapterView.OnItemSelectedListener {
                 binding.expenseAmount.text.toString().toInt(),
                 navigationArgs.tripId
             )
+            val action = EnterExpenseFragmentDirections.actionEnterExpenseFragmentToTripDetailFragment(navigationArgs.tripId)
+            findNavController().navigate(action)
         }
-        binding.expenseName.text.clear()
-        binding.expenseDetails.text.clear()
-        binding.expenseAmount.text.clear()
-        val action = EnterExpenseFragmentDirections.actionEnterExpenseFragmentToTripDetailFragment(navigationArgs.tripId)
-        findNavController().navigate(action)
+        else{
+            Toast.makeText(requireContext(), "Please fill in all the required fields.", Toast.LENGTH_SHORT).show()
+        }
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
