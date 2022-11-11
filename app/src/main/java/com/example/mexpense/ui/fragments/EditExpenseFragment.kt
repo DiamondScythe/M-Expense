@@ -66,8 +66,15 @@ class EditExpenseFragment : Fragment(), AdapterView.OnItemSelectedListener {
                 binding.expenseAmount.text.toString().toInt(),
                 currentTripOwnerId
             )
-            val action = EditExpenseFragmentDirections.actionEditExpenseFragmentToExpenseDetailFragment(expenseId)
-            findNavController().navigate(action)
+            //checks for previous fragment to choose the proper navigation
+            if (navigationArgs.previousFragment == "TripDetailFragment"){
+                val action = EditExpenseFragmentDirections.actionEditExpenseFragmentToExpenseDetailFragment(expenseId)
+                findNavController().navigate(action)
+            }
+            else
+            {
+                findNavController().popBackStack()
+            }
         }
         else{
             Toast.makeText(requireContext(), "Please fill in all the required fields.", Toast.LENGTH_SHORT).show()

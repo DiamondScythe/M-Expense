@@ -59,7 +59,8 @@ class ExpenseDetailFragment : Fragment() {
             bind(expense)
         }
         binding.editButton.setOnClickListener {
-            val action = ExpenseDetailFragmentDirections.actionExpenseDetailFragmentToEditExpenseFragment(navigationArgs.expenseId)
+            val action = ExpenseDetailFragmentDirections.actionExpenseDetailFragmentToEditExpenseFragment(
+                navigationArgs.expenseId, "ExpenseDetailFragment")
             this.findNavController().navigate(action)
         }
     }

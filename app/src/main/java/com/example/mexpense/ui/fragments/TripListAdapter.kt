@@ -80,7 +80,8 @@ class TripListAdapter(val parentFragment: ViewDataFragment) :
     }
 
     private fun navigateToEdit(tripId: Int){
-        val action = ViewDataFragmentDirections.actionViewDataFragmentToEditTripFragment(tripId)
+        val action = ViewDataFragmentDirections.actionViewDataFragmentToEditTripFragment(
+            tripId, "ViewDataFragment")
         parentFragment.findNavController().navigate(action)
     }
 

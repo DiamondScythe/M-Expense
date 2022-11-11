@@ -89,7 +89,8 @@ class TripDetailFragment : Fragment() {
         }
 
         binding.editButton.setOnClickListener {
-            val action = TripDetailFragmentDirections.actionTripDetailFragmentToEditTripFragment(navigationArgs.tripId)
+            val action = TripDetailFragmentDirections.actionTripDetailFragmentToEditTripFragment(
+                navigationArgs.tripId, "TripDetailFragment")
             this.findNavController().navigate(action)
         }
 

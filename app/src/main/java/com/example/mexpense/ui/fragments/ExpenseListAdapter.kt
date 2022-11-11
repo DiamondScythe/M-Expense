@@ -101,7 +101,8 @@ class ExpenseListAdapter(val parentFragment: TripDetailFragment):
     }
 
     private fun navigateToEdit(expenseId: Int) {
-        val action = TripDetailFragmentDirections.actionTripDetailFragmentToEditExpenseFragment(expenseId)
+        val action = TripDetailFragmentDirections.actionTripDetailFragmentToEditExpenseFragment(
+            expenseId, "TripDetailFragment")
         parentFragment.findNavController().navigate(action)
     }
 

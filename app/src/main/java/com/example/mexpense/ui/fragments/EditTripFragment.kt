@@ -81,8 +81,16 @@ class EditTripFragment : Fragment() {
                 tripRisk,
                 binding.tripDescription.text.toString(),
                 )
-            val action = EditTripFragmentDirections.actionEditTripFragmentToTripDetailFragment(id)
-            findNavController().navigate(action)
+            //checks for previous fragment name to navigate properly
+            if (navigationArgs.previousFragment == "ViewDataFragment"){
+                val action = EditTripFragmentDirections.actionEditTripFragmentToTripDetailFragment(id)
+                findNavController().navigate(action)
+            }
+            else
+            {
+                findNavController().popBackStack()
+            }
+
         }
         else{
             Toast.makeText(requireContext(), "Please fill in all the required fields.", Toast.LENGTH_SHORT).show()
