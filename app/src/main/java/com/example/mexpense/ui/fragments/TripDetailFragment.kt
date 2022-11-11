@@ -88,6 +88,11 @@ class TripDetailFragment : Fragment() {
             this.findNavController().navigate(action)
         }
 
+        binding.editButton.setOnClickListener {
+            val action = TripDetailFragmentDirections.actionTripDetailFragmentToEditTripFragment(navigationArgs.tripId)
+            this.findNavController().navigate(action)
+        }
+
         //register the items in recylcer view for context menu (long click menu)
         registerForContextMenu(binding.recyclerView)
 

@@ -6,6 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.activityViewModels
+import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.example.mexpense.MExpenseApplication
 import com.example.mexpense.R
@@ -57,7 +58,9 @@ class ExpenseDetailFragment : Fragment() {
             expense = selectedExpense
             bind(expense)
         }
-//        val expense = expenseViewModel.retrieveStaticExpense(id)
-//        bind(expense)
+        binding.editButton.setOnClickListener {
+            val action = ExpenseDetailFragmentDirections.actionExpenseDetailFragmentToEditExpenseFragment(navigationArgs.expenseId)
+            this.findNavController().navigate(action)
+        }
     }
 }

@@ -67,6 +67,9 @@
         <action
             android:id="@+id/action_tripDetailFragment_to_editExpenseFragment"
             app:destination="@id/editExpenseFragment" />
+        <action
+            android:id="@+id/action_tripDetailFragment_to_editTripFragment"
+            app:destination="@id/editTripFragment" />
     </fragment>
     <fragment
         android:id="@+id/enterExpenseFragment"
@@ -103,6 +106,9 @@
         <argument
             android:name="expenseId"
             app:argType="integer" />
+        <action
+            android:id="@+id/action_expenseDetailFragment_to_editExpenseFragment"
+            app:destination="@id/editExpenseFragment" />
     </fragment>
     <fragment
         android:id="@+id/editExpenseFragment"
