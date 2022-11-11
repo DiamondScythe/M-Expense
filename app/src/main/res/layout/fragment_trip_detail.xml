@@ -34,9 +34,8 @@
         android:text=""
         android:textColor="@color/black"
         tools:text="Something nice"
-        android:layout_marginTop="40dp"
         app:layout_constraintStart_toStartOf="@+id/textViewName"
-        app:layout_constraintTop_toBottomOf="@+id/textViewName" />
+        app:layout_constraintTop_toTopOf="@+id/textView5" />
 
     <TextView
         android:id="@+id/textViewTime"
@@ -45,9 +44,8 @@
         android:text=""
         android:textColor="@color/black"
         tools:text="Something nice"
-        android:layout_marginTop="40dp"
         app:layout_constraintStart_toStartOf="@+id/textViewName"
-        app:layout_constraintTop_toBottomOf="@+id/textViewLocation" />
+        app:layout_constraintTop_toTopOf="@+id/textView6" />
 
     <TextView
         android:id="@+id/textViewRisk"
@@ -56,20 +54,18 @@
         android:text=""
         android:textColor="@color/black"
         tools:text="Something nice"
-        android:layout_marginTop="40dp"
         app:layout_constraintStart_toStartOf="@+id/textViewName"
-        app:layout_constraintTop_toBottomOf="@+id/textViewTime" />
+        app:layout_constraintTop_toTopOf="@+id/textView7" />
 
     <TextView
         android:id="@+id/textViewDetails"
         android:layout_width="192dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="40dp"
         android:text=""
         android:textColor="@color/black"
         tools:text="Something nice"
         app:layout_constraintStart_toStartOf="@+id/textViewName"
-        app:layout_constraintTop_toBottomOf="@+id/textViewRisk" />
+        app:layout_constraintTop_toTopOf="@+id/textView8" />
 
     <TextView
         android:id="@+id/textView5"

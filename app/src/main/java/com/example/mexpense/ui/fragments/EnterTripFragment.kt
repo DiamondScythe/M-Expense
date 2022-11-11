@@ -71,18 +71,6 @@ class EnterTripFragment : Fragment() {
 
     private fun addNewItem() {
         if (isEntryValid()) {
-//            viewModel.addNewTrip(
-//                binding.tripName.text.toString(),
-//                binding.tripLocation.text.toString(),
-//                binding.tripTime.text.toString(),
-//                tripRisk,
-//                binding.tripDescription.text.toString(),
-//            )
-//            binding.tripName.text.clear()
-//            binding.tripLocation.text.clear()
-//            binding.tripTime.text.clear()
-//            binding.tripDescription.text.clear()
-
             val action = EnterTripFragmentDirections.actionEnterTripFragmentToConfirmTripFragment(
                 binding.tripName.text.toString(),
                 binding.tripLocation.text.toString(),
@@ -91,10 +79,10 @@ class EnterTripFragment : Fragment() {
                 binding.tripDescription.text.toString(),
             )
             findNavController().navigate(action)
-
         }
-
-
+        else{
+            Toast.makeText(requireContext(), "Please fill in all the required fields", Toast.LENGTH_SHORT).show()
+        }
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
