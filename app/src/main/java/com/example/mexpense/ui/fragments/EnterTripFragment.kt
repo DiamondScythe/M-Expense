@@ -1,10 +1,8 @@
 package com.example.mexpense.ui.fragments
 
-import android.annotation.SuppressLint
 import android.app.DatePickerDialog
 import android.content.Context
 import android.content.pm.PackageManager
-import android.location.Address
 import android.location.Geocoder
 import android.location.LocationManager
 import android.os.Bundle
@@ -35,9 +33,11 @@ import java.util.*
 class EnterTripFragment : Fragment() {
     private var _binding: FragmentEnterTripBinding? = null
     private val binding get() = _binding!!
+
+    //var for location service
     lateinit var fusedLocationProviderClient: FusedLocationProviderClient
 
-    //init the variables lat for latitude and long for longitude
+    //init the variables lat for latitude and long for longitude of current location
     private var lat: Double = 0.0
     private var long: Double = 0.0
 
@@ -102,7 +102,7 @@ class EnterTripFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        //location stuff here
+        //init provider client
         fusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(requireContext())
         setCoordinates()
 
@@ -124,7 +124,7 @@ class EnterTripFragment : Fragment() {
     private fun getUserLocation() {
         if (!checkLocationPermission()){
             //if user hasn't granted location permission yet, do this
-            getPermission()
+            getLocationPermission()
             Toast.makeText(requireContext(), "Location permission has not been granted", Toast.LENGTH_SHORT).show()
         }
         else{
@@ -139,7 +139,7 @@ class EnterTripFragment : Fragment() {
         }
     }
 
-    private fun getPermission() {
+    private fun getLocationPermission() {
         //if permission isn't granted, asks the user for it
         if (ActivityCompat.checkSelfPermission(requireContext(),
                 android.Manifest.permission.ACCESS_FINE_LOCATION)
@@ -193,6 +193,35 @@ class EnterTripFragment : Fragment() {
             LocationManager.NETWORK_PROVIDER)
     }
 
+    //if permission isn't granted, returns false
+    private fun checkLocationPermission(): Boolean{
+        if (ActivityCompat.checkSelfPermission(requireContext(),
+                android.Manifest.permission.ACCESS_FINE_LOCATION)
+            != PackageManager.PERMISSION_GRANTED &&
+            ActivityCompat.checkSelfPermission(requireContext(),
+                android.Manifest.permission.ACCESS_COARSE_LOCATION)
+            != PackageManager.PERMISSION_GRANTED
+        ) {
+            return false
+        }
+        return true
+    }
+
+    //gets the address based on current lat and long
+    private fun getAddressInfo(lat: Double, long:Double): String{
+        if (lat != 0.0){
+            val geocoder = Geocoder(requireContext(), Locale.getDefault())
+            val address = geocoder.getFromLocation(lat, long, 1)
+
+            val country = address!!.first().countryName
+
+            val addressInfo = country
+            return addressInfo
+        }
+        return "Location initializing"
+    }
+
+    //fun to handle datepicker transformation
     private fun EditText.transformIntoDatePicker(context: Context, format: String) {
         isFocusableInTouchMode = false
         isClickable = true
@@ -217,32 +246,5 @@ class EnterTripFragment : Fragment() {
                 show()
             }
         }
-    }
-
-    private fun checkLocationPermission(): Boolean{
-        //if permission isn't granted, returns false
-        if (ActivityCompat.checkSelfPermission(requireContext(),
-                android.Manifest.permission.ACCESS_FINE_LOCATION)
-            != PackageManager.PERMISSION_GRANTED &&
-            ActivityCompat.checkSelfPermission(requireContext(),
-                android.Manifest.permission.ACCESS_COARSE_LOCATION)
-            != PackageManager.PERMISSION_GRANTED
-        ) {
-            return false
-        }
-        return true
-    }
-
-    private fun getAddressInfo(lat: Double, long:Double): String{
-        if (lat != 0.0){
-            val geocoder = Geocoder(requireContext(), Locale.getDefault())
-            val address = geocoder.getFromLocation(lat, long, 1)
-
-            val country = address!!.first().countryName
-
-            val addressInfo = country
-            return addressInfo
-        }
-        return "Location initializing"
     }
 }

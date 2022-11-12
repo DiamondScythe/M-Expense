@@ -129,7 +129,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/tripDescriptionContainer"
         android:layout_marginTop="20dp"
-        android:text="Next">
+        android:text="Save">
     </Button>
 
     <com.google.android.material.button.MaterialButton

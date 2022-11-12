@@ -2,6 +2,9 @@ package com.example.mexpense.ui.fragments
 
 import android.app.DatePickerDialog
 import android.content.Context
+import android.content.pm.PackageManager
+import android.location.Geocoder
+import android.location.LocationManager
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -10,6 +13,7 @@ import android.view.ViewGroup
 import android.widget.CheckBox
 import android.widget.EditText
 import android.widget.Toast
+import androidx.core.app.ActivityCompat
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
@@ -18,6 +22,10 @@ import com.example.mexpense.R
 import com.example.mexpense.TripViewModel
 import com.example.mexpense.TripViewModelFactory
 import com.example.mexpense.databinding.FragmentEditTripBinding
+import com.google.android.gms.location.FusedLocationProviderClient
+import com.google.android.gms.location.LocationRequest
+import com.google.android.gms.location.LocationServices
+import com.google.android.gms.tasks.CancellationTokenSource
 import java.text.SimpleDateFormat
 import java.util.*
 
@@ -25,6 +33,13 @@ import java.util.*
 class EditTripFragment : Fragment() {
     private var _binding: FragmentEditTripBinding? = null
     private val binding get() = _binding!!
+
+    //var for location service
+    lateinit var fusedLocationProviderClient: FusedLocationProviderClient
+
+    //init the variables lat for latitude and long for longitude of current location
+    private var lat: Double = 0.0
+    private var long: Double = 0.0
 
     private val viewModel: TripViewModel by activityViewModels {
         TripViewModelFactory(
@@ -101,6 +116,10 @@ class EditTripFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        //init provider client
+        fusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(requireContext())
+        setCoordinates()
+
         val id = navigationArgs.tripId
 
         val trip = viewModel.retrieveStaticTrip(id)
@@ -124,9 +143,114 @@ class EditTripFragment : Fragment() {
             binding.riskCheckBox.setOnCheckedChangeListener { view, _ ->
                 onCheckboxClicked(view)
             }
+            binding.getLocationButton.setOnClickListener {
+                setCoordinates()
+                getUserLocation()
+            }
         }
     }
 
+    private fun getUserLocation() {
+        if (!checkLocationPermission()){
+            //if user hasn't granted location permission yet, do this
+            getLocationPermission()
+            Toast.makeText(requireContext(), "Location permission has not been granted", Toast.LENGTH_SHORT).show()
+        }
+        else{
+            val currentLat = lat
+            val addressInfo = getAddressInfo(lat, long)
+            if (addressInfo == "Location initializing"){
+                Toast.makeText(requireContext(), "Location services initializing, please try again.", Toast.LENGTH_SHORT).show()
+            }
+            else{
+                binding.tripLocation.setText(addressInfo)
+            }
+        }
+    }
+
+    private fun getLocationPermission() {
+        //if permission isn't granted, asks the user for it
+        if (ActivityCompat.checkSelfPermission(requireContext(),
+                android.Manifest.permission.ACCESS_FINE_LOCATION)
+            != PackageManager.PERMISSION_GRANTED &&
+            ActivityCompat.checkSelfPermission(requireContext(),
+                android.Manifest.permission.ACCESS_COARSE_LOCATION)
+            != PackageManager.PERMISSION_GRANTED
+        ) {
+            ActivityCompat.requestPermissions(
+                requireActivity(), arrayOf(android.Manifest.permission.ACCESS_FINE_LOCATION),
+                101)
+        }
+    }
+
+
+    private fun setCoordinates() {
+        val priority = LocationRequest.PRIORITY_BALANCED_POWER_ACCURACY
+        val cancellationTokenSource = CancellationTokenSource()
+
+        if (ActivityCompat.checkSelfPermission(requireContext(),
+                android.Manifest.permission.ACCESS_FINE_LOCATION)
+            != PackageManager.PERMISSION_GRANTED &&
+            ActivityCompat.checkSelfPermission(requireContext(),
+                android.Manifest.permission.ACCESS_COARSE_LOCATION)
+            != PackageManager.PERMISSION_GRANTED
+        ) {
+            return
+        }
+        //first, checks if the location service toggle is enabled on the device. If enabled, get the
+        //current location and pass it to the location variables using setCoordinates()
+        if (isLocationEnabled(requireContext())) {
+            fusedLocationProviderClient.getCurrentLocation(
+                priority, cancellationTokenSource.token
+            )
+                .addOnSuccessListener { location ->
+                    setCoordinates(location.latitude, location.longitude)
+                }
+        }
+        return
+    }
+
+    private fun setCoordinates(thisLat: Double, thisLong: Double){
+        lat = thisLat
+        long = thisLong
+    }
+
+    //checks if the location service toggle is enabled
+    private fun isLocationEnabled(mContext: Context): Boolean {
+        val lm = mContext.getSystemService(Context.LOCATION_SERVICE) as LocationManager
+        return lm.isProviderEnabled(LocationManager.GPS_PROVIDER) || lm.isProviderEnabled(
+            LocationManager.NETWORK_PROVIDER)
+    }
+
+    //if permission isn't granted, returns false
+    private fun checkLocationPermission(): Boolean{
+        if (ActivityCompat.checkSelfPermission(requireContext(),
+                android.Manifest.permission.ACCESS_FINE_LOCATION)
+            != PackageManager.PERMISSION_GRANTED &&
+            ActivityCompat.checkSelfPermission(requireContext(),
+                android.Manifest.permission.ACCESS_COARSE_LOCATION)
+            != PackageManager.PERMISSION_GRANTED
+        ) {
+            return false
+        }
+        return true
+    }
+
+    //gets the address based on current lat and long
+    private fun getAddressInfo(lat: Double, long:Double): String{
+        if (lat != 0.0){
+            val geocoder = Geocoder(requireContext(), Locale.getDefault())
+            val address = geocoder.getFromLocation(lat, long, 1)
+
+            val country = address!!.first().countryName
+
+            val addressInfo = country
+            return addressInfo
+        }
+        return "Location initializing"
+    }
+
+    //handles date picker transformation
     fun EditText.transformIntoDatePicker(context: Context, format: String, maxDate: Date? = null) {
         isFocusableInTouchMode = false
         isClickable = true
