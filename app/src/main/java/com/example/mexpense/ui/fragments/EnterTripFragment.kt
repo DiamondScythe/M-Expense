@@ -2,6 +2,7 @@ package com.example.mexpense.ui.fragments
 
 import android.app.DatePickerDialog
 import android.content.Context
+import android.content.pm.PackageManager
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -10,6 +11,7 @@ import android.view.ViewGroup
 import android.widget.CheckBox
 import android.widget.EditText
 import android.widget.Toast
+import androidx.core.app.ActivityCompat
 import androidx.fragment.app.FragmentActivity
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
@@ -124,6 +126,35 @@ class EnterTripFragment : Fragment() {
                 maxDate?.time?.also { datePicker.maxDate = it }
                 show()
             }
+        }
+    }
+
+    private fun checkLocationPermission(): Boolean{
+        //if permission isn't granted, returns false
+        if (ActivityCompat.checkSelfPermission(requireContext(),
+                android.Manifest.permission.ACCESS_FINE_LOCATION)
+            != PackageManager.PERMISSION_GRANTED &&
+            ActivityCompat.checkSelfPermission(requireContext(),
+                android.Manifest.permission.ACCESS_COARSE_LOCATION)
+            != PackageManager.PERMISSION_GRANTED
+        ) {
+            return false
+        }
+        return true
+    }
+
+    private fun getPermission() {
+        //if permission isn't granted, ask the user for it
+        if (ActivityCompat.checkSelfPermission(requireContext(),
+                android.Manifest.permission.ACCESS_FINE_LOCATION)
+            != PackageManager.PERMISSION_GRANTED &&
+            ActivityCompat.checkSelfPermission(requireContext(),
+                android.Manifest.permission.ACCESS_COARSE_LOCATION)
+            != PackageManager.PERMISSION_GRANTED
+        ) {
+            ActivityCompat.requestPermissions(
+                requireActivity(), arrayOf(android.Manifest.permission.ACCESS_FINE_LOCATION),
+                101)
         }
     }
 }
