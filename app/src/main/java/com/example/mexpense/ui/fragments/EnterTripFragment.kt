@@ -79,6 +79,7 @@ class EnterTripFragment : Fragment() {
                 tripRisk,
                 binding.tripDescription.text.toString(),
             )
+            Toast.makeText(requireContext(), "Trip added!", Toast.LENGTH_SHORT).show()
             findNavController().navigate(action)
         }
         else{

@@ -81,6 +81,7 @@ class EditTripFragment : Fragment() {
                 tripRisk,
                 binding.tripDescription.text.toString(),
                 )
+            Toast.makeText(requireContext(), "Saved successfully!", Toast.LENGTH_SHORT).show()
             //checks for previous fragment name to navigate properly
             if (navigationArgs.previousFragment == "ViewDataFragment"){
                 val action = EditTripFragmentDirections.actionEditTripFragmentToTripDetailFragment(id)

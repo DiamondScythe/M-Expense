@@ -90,6 +90,10 @@ class TripViewModel(private val tripDao: TripDao) : ViewModel() {
     fun removeTrip(tripId: Int){
         return tripDao.delete2(tripId)
     }
+
+    fun dropTrip(){
+        return tripDao.dropTrip()
+    }
 }
 
 class TripViewModelFactory(private val tripDao: TripDao) : ViewModelProvider.Factory {

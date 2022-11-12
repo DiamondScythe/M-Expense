@@ -100,6 +100,10 @@ class ExpenseViewModel(private val expenseDao: ExpenseDao): ViewModel() {
     fun removeExpense(expenseId: Int) {
         expenseDao.delete2(expenseId)
     }
+
+    fun dropExpense(){
+        return expenseDao.dropExpense()
+    }
 }
 
 class ExpenseViewModelFactory(private val expenseDao: ExpenseDao) : ViewModelProvider.Factory {

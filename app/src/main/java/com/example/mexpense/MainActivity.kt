@@ -48,7 +48,7 @@ class MainActivity : AppCompatActivity() {
         // menu should be considered as top level destinations.
         appBarConfiguration = AppBarConfiguration(
             setOf(
-                R.id.selectionFragment, R.id.enterTripFragment, R.id.viewDataFragment
+                R.id.selectionFragment, R.id.enterTripFragment, R.id.viewDataFragment, R.id.settingsFragment
             ), drawerLayout
         )
 
@@ -57,7 +57,8 @@ class MainActivity : AppCompatActivity() {
         botNavView.setupWithNavController(navController)
 
         navController.addOnDestinationChangedListener { _, nd: NavDestination, _ ->
-            if (nd.id == R.id.selectionFragment || nd.id == R.id.enterTripFragment || nd.id == R.id.viewDataFragment) {
+            if (nd.id == R.id.selectionFragment || nd.id == R.id.enterTripFragment
+                || nd.id == R.id.viewDataFragment || nd.id == R.id.settingsFragment) {
                 botNavView.visibility = View.VISIBLE
             } else {
                 botNavView.visibility = View.GONE

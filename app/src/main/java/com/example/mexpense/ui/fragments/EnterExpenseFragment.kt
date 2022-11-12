@@ -62,6 +62,7 @@ class EnterExpenseFragment : Fragment(), AdapterView.OnItemSelectedListener {
                 binding.expenseAmount.text.toString().toInt(),
                 navigationArgs.tripId
             )
+            Toast.makeText(requireContext(), "Expense added!", Toast.LENGTH_SHORT).show()
             val action = EnterExpenseFragmentDirections.actionEnterExpenseFragmentToTripDetailFragment(navigationArgs.tripId)
             findNavController().navigate(action)
         }

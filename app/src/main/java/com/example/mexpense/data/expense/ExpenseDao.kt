@@ -38,4 +38,7 @@ interface ExpenseDao {
 
     @Query("DELETE from expense where id = :id")
     fun delete2(id: Int)
+
+    @Query("DELETE FROM expense")
+    fun dropExpense()
 }

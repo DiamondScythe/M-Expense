@@ -1,9 +1,7 @@
 package com.example.mexpense.ui.fragments
 
+import android.app.Application
 import android.os.Bundle
-import android.os.Handler
-import android.os.Looper
-import android.provider.Settings.Global
 import android.view.*
 import android.widget.Toast
 import androidx.appcompat.widget.SearchView
@@ -22,7 +20,6 @@ import com.example.mexpense.data.trip.Trip
 import com.example.mexpense.databinding.FragmentViewDataBinding
 import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.ktx.database
-import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
@@ -31,6 +28,7 @@ import kotlinx.coroutines.launch
 class ViewDataFragment : Fragment() {
     private var _binding: FragmentViewDataBinding? = null
     private val binding get() = _binding!!
+    private var connectionStatus = false
 
     //Use by delegate to hand off the property initialization to the activityViewModels class. Pass in the InventoryViewModelFactory constructor.
     private val viewModel: TripViewModel by activityViewModels {
@@ -66,6 +64,9 @@ class ViewDataFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        //continuously checks for network connection status
+        callNetworkConnection()
 
         val adapter = TripListAdapter(this)
         binding.recyclerView.adapter = adapter
@@ -132,13 +133,38 @@ class ViewDataFragment : Fragment() {
     }
 
     private fun backupData() {
-        GlobalScope.launch{
-            val allTrips: List<Trip> = viewModel.retrieveStaticTrips()
-            dbRefTrip.setValue(allTrips)
+        if (connectionStatus){
+            GlobalScope.launch{
+                val allTrips: List<Trip> = viewModel.retrieveStaticTrips()
+                dbRefTrip.setValue(allTrips)
 
-            val allExpenses: List<Expense> = expenseViewModel.retrieveStaticExpenses()
-            dbRefExpense.setValue(allExpenses)
+                val allExpenses: List<Expense> = expenseViewModel.retrieveStaticExpenses()
+                dbRefExpense.setValue(allExpenses)
+            }
+            Toast.makeText(requireContext(), "Uploaded!", Toast.LENGTH_SHORT).show()
         }
-        Toast.makeText(requireContext(), "Uploaded!", Toast.LENGTH_SHORT).show()
+        else{
+            Toast.makeText(requireContext(), "Connection error. Please check your network connections.", Toast.LENGTH_LONG).show()
+        }
+    }
+
+    private fun callNetworkConnection() {
+        var checkNetworkConnection = CheckNetworkConnection(activity?.application as Application
+        )
+        checkNetworkConnection.observe(viewLifecycleOwner) { isConnected ->
+            if (isConnected) {
+                setConnectionStatusToTrue()
+            } else {
+                setConnectionStatusToFalse()
+            }
+        }
+    }
+
+    private fun setConnectionStatusToFalse() {
+        connectionStatus = false
+    }
+
+    private fun setConnectionStatusToTrue() {
+        connectionStatus = true
     }
 }

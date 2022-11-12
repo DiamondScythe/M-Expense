@@ -30,7 +30,7 @@ interface TripDao {
 
     @Query("SELECT * from trip WHERE id = :id")
     fun getStaticTrip(id: Int): Trip
-//    @Transaction
-//    @Query("SELECT * FROM trip")
-//    fun getUsersWithPlaylists(): List<TripWithExpenses>
+
+    @Query("DELETE FROM trip")
+    fun dropTrip()
 }

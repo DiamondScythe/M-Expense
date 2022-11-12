@@ -66,6 +66,7 @@ class EditExpenseFragment : Fragment(), AdapterView.OnItemSelectedListener {
                 binding.expenseAmount.text.toString().toInt(),
                 currentTripOwnerId
             )
+            Toast.makeText(requireContext(), "Saved successfully!", Toast.LENGTH_SHORT).show()
             //checks for previous fragment to choose the proper navigation
             if (navigationArgs.previousFragment == "TripDetailFragment"){
                 val action = EditExpenseFragmentDirections.actionEditExpenseFragmentToExpenseDetailFragment(expenseId)
