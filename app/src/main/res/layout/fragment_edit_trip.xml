@@ -42,7 +42,7 @@
         android:layout_marginLeft="30dp"
         android:layout_marginRight="140dp"
         app:counterEnabled="true"
-        app:counterMaxLength="40"
+        app:counterMaxLength="50"
         app:helperText="Required"
         app:helperTextTextColor="@android:color/holo_red_dark"
         app:layout_constraintStart_toStartOf="parent"
@@ -52,10 +52,10 @@
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/tripLocation"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:lines="2"
-            android:maxLength="40"
-            android:inputType="text"
+            android:layout_height="wrap_content"
+            android:maxLength="50"
+            android:maxLines="2"
+            android:inputType="textMultiLine"
             android:hint="Trip location">
         </com.google.android.material.textfield.TextInputEditText>
 
@@ -113,7 +113,7 @@
             android:id="@+id/tripDescription"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:inputType="text"
+            android:inputType="textMultiLine"
             android:maxLength="60"
             android:maxLines="2"
             android:hint="Description">
