@@ -151,19 +151,29 @@ class EditTripFragment : Fragment() {
     }
 
     private fun getUserLocation() {
+        //first, check for permission
         if (!checkLocationPermission()){
             //if user hasn't granted location permission yet, do this
             getLocationPermission()
             Toast.makeText(requireContext(), "Location permission has not been granted", Toast.LENGTH_SHORT).show()
         }
+        //if permission is granted, continue
         else{
-            val currentLat = lat
-            val addressInfo = getAddressInfo(lat, long)
-            if (addressInfo == "Location initializing"){
-                Toast.makeText(requireContext(), "Location services initializing, please try again.", Toast.LENGTH_SHORT).show()
+            //second, check if location service is enabled in the user's device.
+            //if not enabled, displays error message
+            if(!isLocationEnabled(requireContext())){
+                Toast.makeText(requireContext(), "Location is not enabled. Please enable it in your device settings", Toast.LENGTH_SHORT).show()
             }
+            //if location service is enabled, start getting addressInfo and set it to the tripLocation editText
             else{
-                binding.tripLocation.setText(addressInfo)
+                val currentLat = lat
+                val addressInfo = getAddressInfo(lat, long)
+                if (addressInfo == "Location initializing"){
+                    Toast.makeText(requireContext(), "Location services initializing, please try again.", Toast.LENGTH_SHORT).show()
+                }
+                else{
+                    binding.tripLocation.setText(addressInfo)
+                }
             }
         }
     }
