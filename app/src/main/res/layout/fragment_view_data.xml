@@ -32,7 +32,7 @@
         style="@style/Widget.Trip.Header"
         android:layout_marginStart="8dp"
         android:layout_marginTop="80dp"
-        android:text="Time"
+        android:text="Date"
         android:textAlignment="center"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_weight="1"

@@ -46,8 +46,7 @@ class ExpenseViewModel(private val expenseDao: ExpenseDao): ViewModel() {
         expenseName: String, expenseDetails: String,
         expenseAmount: String, tripOwnerId: Int): Boolean {
         if (
-            expenseName.isBlank() || expenseDetails.isBlank() ||
-        expenseAmount.isBlank() || expenseAmount.toDoubleOrNull() == null ||tripOwnerId == 0
+            expenseName.isBlank() || expenseAmount.isBlank() || expenseAmount.toDoubleOrNull() == null ||tripOwnerId == 0
         ) {
             return false
         }

@@ -39,6 +39,7 @@ class TripDetailFragment : Fragment() {
         )
     }
 
+    //binds the current trip values to the corresponding views
     private fun bind(trip: Trip){
         binding.apply{
             textViewName.text = trip.tripName
@@ -46,6 +47,10 @@ class TripDetailFragment : Fragment() {
             textViewLocation.text = trip.tripLocation
             textViewRisk.text = trip.tripRiskAssessment
             textViewTime.text = trip.tripTime
+        }
+        if (trip.tripDescription.isEmpty()){
+            binding.textViewDetails.setTextColor(resources.getColor(R.color.dark_gray))
+            binding.textViewDetails.text = "(No details available)"
         }
     }
 

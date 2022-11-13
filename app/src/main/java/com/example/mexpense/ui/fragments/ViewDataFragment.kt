@@ -44,11 +44,8 @@ class ViewDataFragment : Fragment() {
         )
     }
 
-    private var db = Firebase.database
-    val dbRefTrip = FirebaseDatabase.getInstance().getReference("Trips")
-    val dbRefExpense = FirebaseDatabase.getInstance().getReference("Expenses")
-
-    private val backupViewModel: BackupViewModel by activityViewModels()
+    private val dbRefTrip = FirebaseDatabase.getInstance().getReference("Trips")
+    private val dbRefExpense = FirebaseDatabase.getInstance().getReference("Expenses")
 
     suspend fun deleteStuff(tripId: Int){
         viewModel.removeTrip(tripId)

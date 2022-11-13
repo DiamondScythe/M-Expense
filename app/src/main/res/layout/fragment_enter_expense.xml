@@ -6,60 +6,6 @@
     android:layout_height="match_parent"
     tools:context=".ui.fragments.EnterExpenseFragment">
 
-    <!--
-    <EditText
-        android:id="@+id/expenseName"
-        android:layout_width="285dp"
-        android:layout_height="75dp"
-        android:hint="Expense name"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.134"></EditText>
-
-    <EditText
-        android:id="@+id/expenseDetails"
-        android:layout_width="285dp"
-        android:layout_height="75dp"
-        android:hint="Expense details"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/expenseName"
-        tools:layout_editor_absoluteY="196dp"></EditText>
-
-    <Spinner
-        android:id="@+id/expenseType"
-        android:layout_width="285dp"
-        android:layout_height="75dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/expenseDetails"
-        tools:layout_editor_absoluteY="196dp"></Spinner>
-
-
-    <EditText
-        android:id="@+id/expenseAmount"
-        android:layout_width="288dp"
-        android:layout_height="90dp"
-        android:hint="Expense Amount"
-        android:inputType="number"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/expenseType"></EditText>
-
-    <Button
-        android:id="@+id/ButtonEnter"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/expenseAmount"
-        android:layout_marginTop="20dp"
-        android:text="Add">
-    </Button>
-    -->
-
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/expenseNameContainer"
         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
@@ -68,7 +14,7 @@
         android:layout_marginTop="100dp"
         android:layout_marginHorizontal="30dp"
         app:counterEnabled="true"
-        app:counterMaxLength="20"
+        app:counterMaxLength="40"
         app:helperText="Required"
         app:helperTextTextColor="@android:color/holo_red_dark"
         app:layout_constraintStart_toStartOf="parent"
@@ -81,7 +27,7 @@
             android:layout_height="match_parent"
             android:lines="1"
             android:inputType="text"
-            android:maxLength="20"
+            android:maxLength="40"
             android:hint="Expense name">
         </com.google.android.material.textfield.TextInputEditText>
 
@@ -114,11 +60,12 @@
 
     <Spinner
         android:id="@+id/expenseType"
-        android:layout_width="170dp"
+        android:layout_width="190dp"
         android:layout_height="50dp"
         android:layout_marginTop="28dp"
+        style="@style/Widget.AppCompat.Spinner"
         app:layout_constraintEnd_toEndOf="@id/expenseDetailsContainer"
-        app:layout_constraintTop_toBottomOf="@+id/expenseDetailsContainer"></Spinner>
+        app:layout_constraintTop_toBottomOf="@+id/expenseDetailsContainer" />
 
     <TextView
         android:layout_width="160dp"

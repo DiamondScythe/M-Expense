@@ -83,8 +83,8 @@ class ExpenseListAdapter(val parentFragment: TripDetailFragment):
     private fun showConfirmDialog(expenseId: Int) {
         MaterialAlertDialogBuilder(parentFragment.requireContext())
             .setTitle("Expense deletion")
-            .setMessage("Are you sure you want to delete this Expense?")
-            .setCancelable(false)
+            .setMessage("Are you sure you want to delete this expense?")
+            .setCancelable(true)
             .setNegativeButton("No") { dialog , _ ->
                 dialog.dismiss()
             }

@@ -37,6 +37,11 @@ class ExpenseDetailFragment : Fragment() {
             textViewType.text = expense.expenseType
             textViewAmount.text = expense.expenseAmount.toString()
         }
+        if (expense.expenseDetails.isEmpty())
+        {
+            binding.textViewDetails.setTextColor(resources.getColor(R.color.dark_gray))
+            binding.textViewDetails.text = "(No details available)"
+        }
     }
 
     private val navigationArgs: ExpenseDetailFragmentArgs by navArgs()
