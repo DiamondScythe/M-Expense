@@ -12,15 +12,12 @@ import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.Lifecycle
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.mexpense.*
-import com.example.mexpense.data.BackupViewModel
 import com.example.mexpense.data.ExpenseViewModel
 import com.example.mexpense.data.ExpenseViewModelFactory
 import com.example.mexpense.data.expense.Expense
 import com.example.mexpense.data.trip.Trip
 import com.example.mexpense.databinding.FragmentViewDataBinding
 import com.google.firebase.database.FirebaseDatabase
-import com.google.firebase.database.ktx.database
-import com.google.firebase.ktx.Firebase
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 

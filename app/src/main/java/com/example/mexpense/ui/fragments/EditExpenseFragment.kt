@@ -9,16 +9,13 @@ import android.widget.AdapterView
 import android.widget.ArrayAdapter
 import android.widget.Toast
 import androidx.fragment.app.activityViewModels
-import androidx.lifecycle.LiveData
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.example.mexpense.MExpenseApplication
 import com.example.mexpense.R
 import com.example.mexpense.data.ExpenseViewModel
 import com.example.mexpense.data.ExpenseViewModelFactory
-import com.example.mexpense.data.expense.Expense
 import com.example.mexpense.databinding.FragmentEditExpenseBinding
-import com.example.mexpense.databinding.FragmentEnterExpenseBinding
 
 class EditExpenseFragment : Fragment(), AdapterView.OnItemSelectedListener {
 
@@ -34,6 +31,7 @@ class EditExpenseFragment : Fragment(), AdapterView.OnItemSelectedListener {
 
     private val navigationArgs: EditExpenseFragmentArgs by navArgs()
 
+    //get current expenseId. Use lazy to get the current expenseId when it's actually needed
     private val expenseId by lazy {
         navigationArgs.expenseId
     }
@@ -46,6 +44,7 @@ class EditExpenseFragment : Fragment(), AdapterView.OnItemSelectedListener {
         return binding.root
     }
 
+    //checks for the validity of the entry
     private fun isEntryValid(): Boolean {
         return viewModel.isEntryValid(
             binding.expenseName.text.toString(),
@@ -56,6 +55,7 @@ class EditExpenseFragment : Fragment(), AdapterView.OnItemSelectedListener {
         )
     }
 
+    //updates the item with the given id
     private fun updateItem(expenseId: Int, currentTripOwnerId: Int) {
         if (isEntryValid()) {
             viewModel.updateWithNewExpense(
@@ -74,10 +74,12 @@ class EditExpenseFragment : Fragment(), AdapterView.OnItemSelectedListener {
             }
             else
             {
+                //returns to previous fragment
                 findNavController().popBackStack()
             }
         }
         else{
+            //if entry valid check returns false, toast an error message
             Toast.makeText(requireContext(), "Please fill in all the required fields.", Toast.LENGTH_SHORT).show()
         }
     }
@@ -85,11 +87,6 @@ class EditExpenseFragment : Fragment(), AdapterView.OnItemSelectedListener {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
-        //why doesn't this work
-//        viewModel.retrieveExpense(expenseId).observe(this.viewLifecycleOwner){ selectedExpense ->
-//            expense = selectedExpense
-//        }
 
         val expense = viewModel.retrieveStaticExpense(expenseId)
 
@@ -109,8 +106,10 @@ class EditExpenseFragment : Fragment(), AdapterView.OnItemSelectedListener {
             binding.expenseType.onItemSelectedListener = this
         }
 
+        //sets the expense type spinner selection to the one that's already associated with the current id
         binding.expenseType.setSelection(resources.getStringArray(R.array.expense_types).indexOf(expenseType))
 
+        //sets the expense data to the edittextviews
         binding.apply{
             binding.expenseName.setText(expense.expenseName)
             binding.expenseDetails.setText(expense.expenseDetails)
@@ -122,11 +121,11 @@ class EditExpenseFragment : Fragment(), AdapterView.OnItemSelectedListener {
         }
     }
 
+    //used to handle item select action
     override fun onItemSelected(parent: AdapterView<*>, view: View?, pos: Int, id: Long) {
         currentExpenseType = parent.getItemAtPosition(pos).toString()
     }
 
     override fun onNothingSelected(p0: AdapterView<*>?) {
-        TODO("Not yet implemented")
     }
 }

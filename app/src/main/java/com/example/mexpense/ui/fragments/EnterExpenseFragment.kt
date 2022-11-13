@@ -21,6 +21,7 @@ import com.example.mexpense.data.expense.Expense
 import com.example.mexpense.databinding.FragmentEnterExpenseBinding
 import kotlinx.coroutines.NonDisposableHandle.parent
 
+//var used to keep track of the currentExpenseType of the spinner
 var currentExpenseType: String = ""
 
 class EnterExpenseFragment : Fragment(), AdapterView.OnItemSelectedListener {

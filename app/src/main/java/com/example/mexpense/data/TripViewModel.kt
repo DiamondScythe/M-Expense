@@ -98,8 +98,8 @@ class TripViewModel(private val tripDao: TripDao) : ViewModel() {
 
 class TripViewModelFactory(private val tripDao: TripDao) : ViewModelProvider.Factory {
     override fun <T : ViewModel> create(modelClass: Class<T>): T {
-        //Check if the modelClass is the same as the InventoryViewModel class and return an instance
-        //of it. Otherwise, throw an exception.
+        //Check if the modelClass is the same as the InventoryViewModel class then return an instance
+        //of it. If not, throw exception.
         if (modelClass.isAssignableFrom(TripViewModel::class.java)) {
             @Suppress("UNCHECKED_CAST")
             return TripViewModel(tripDao) as T

@@ -8,7 +8,6 @@ import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.launch
 
 class ExpenseViewModel(private val expenseDao: ExpenseDao): ViewModel() {
-    val allExpenses: LiveData<List<Expense>> = expenseDao.getExpenses().asLiveData()
 
     private fun insertExpense(expense: Expense){
         viewModelScope.launch {
@@ -107,8 +106,8 @@ class ExpenseViewModel(private val expenseDao: ExpenseDao): ViewModel() {
 
 class ExpenseViewModelFactory(private val expenseDao: ExpenseDao) : ViewModelProvider.Factory {
     override fun <T : ViewModel> create(modelClass: Class<T>): T {
-        //Check if the modelClass is the same as the InventoryViewModel class and return an instance
-        //of it. Otherwise, throw an exception.
+        //Check if the modelClass is the same as the InventoryViewModel class then return an instance
+        //of it. If not, throw exception
         if (modelClass.isAssignableFrom(ExpenseViewModel::class.java)) {
             @Suppress("UNCHECKED_CAST")
             return ExpenseViewModel(expenseDao) as T

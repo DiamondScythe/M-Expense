@@ -21,7 +21,6 @@ abstract class TripRoomDatabase : RoomDatabase() {
                     TripRoomDatabase::class.java,
                     "trip_database"
                 )   // Wipes and rebuilds instead of migrating if no Migration object.
-                    // Migration is not part of this codelab.
                     .fallbackToDestructiveMigration()
                         //allows main thread queries to be run
                     .allowMainThreadQueries()

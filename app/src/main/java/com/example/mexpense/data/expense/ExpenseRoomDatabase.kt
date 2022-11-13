@@ -22,6 +22,7 @@ abstract class ExpenseRoomDatabase : RoomDatabase() {
                     "expense_database"
                 )   // Wipes and rebuilds instead of migrating if no Migration object.
                     .fallbackToDestructiveMigration()
+                    //allows main thread queries to be run
                     .allowMainThreadQueries()
                     .build()
                 INSTANCE = instance

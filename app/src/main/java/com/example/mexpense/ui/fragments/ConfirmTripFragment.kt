@@ -10,17 +10,10 @@ import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.example.mexpense.MExpenseApplication
-import com.example.mexpense.R
 import com.example.mexpense.TripViewModel
 import com.example.mexpense.TripViewModelFactory
 import com.example.mexpense.databinding.FragmentConfirmTripBinding
-import com.example.mexpense.databinding.FragmentEnterTripBinding
 
-/**
- * A simple [Fragment] subclass.
- * Use the [ConfirmTripFragment.newInstance] factory method to
- * create an instance of this fragment.
- */
 class ConfirmTripFragment : Fragment() {
 
     private var _binding: FragmentConfirmTripBinding? = null
@@ -46,6 +39,7 @@ class ConfirmTripFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        //binds the data to the views
         binding.apply {
             textViewName.text = navigationArgs.tripName
             textViewLocation.text = navigationArgs.tripLocation
@@ -54,6 +48,7 @@ class ConfirmTripFragment : Fragment() {
             textViewTime.text = navigationArgs.tripTime
         }
 
+        //sets action for enter button
         binding.enterButton.setOnClickListener {
             viewModel.addNewTrip(
                 navigationArgs.tripName,
