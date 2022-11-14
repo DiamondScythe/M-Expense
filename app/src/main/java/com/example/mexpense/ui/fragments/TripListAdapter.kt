@@ -19,7 +19,8 @@ import kotlinx.coroutines.launch
  * [ListAdapter] implementation for the recyclerview.
  */
 
-class TripListAdapter(val parentFragment: ViewDataFragment) :
+//this class takes parentFragment as a param in order to access the parent fragment's functions
+class TripListAdapter(private val parentFragment: ViewDataFragment) :
     ListAdapter<Trip, TripListAdapter.TripViewHolder>(DiffCallback), Filterable {
 
     private var tripList = mutableListOf<Trip>()
@@ -42,6 +43,7 @@ class TripListAdapter(val parentFragment: ViewDataFragment) :
         holder.itemView.setOnClickListener {
             onItemClicked(tripId)
         }
+        //sets up the context menu for the current view holder
         holder.itemView.setOnCreateContextMenuListener { contextMenu, _, _ ->
             contextMenu.add("View details").setOnMenuItemClickListener {
                 onItemClicked(tripId)
@@ -59,6 +61,7 @@ class TripListAdapter(val parentFragment: ViewDataFragment) :
         holder.bind(current)
     }
 
+    //confirm dialog before item deletion
     private fun showConfirmDialog(tripId: Int) {
         MaterialAlertDialogBuilder(parentFragment.requireContext())
             .setTitle("Trip deletion")
@@ -75,6 +78,7 @@ class TripListAdapter(val parentFragment: ViewDataFragment) :
             .show()
     }
 
+    //deletes the item at current Id. This will call the function from its parent Fragment (ViewDataFragment)
     private suspend fun deleteItem(tripId: Int) {
         parentFragment.deleteStuff(tripId)
     }
@@ -85,6 +89,7 @@ class TripListAdapter(val parentFragment: ViewDataFragment) :
         parentFragment.findNavController().navigate(action)
     }
 
+    //used by viewDataFragment to set the data for the recycler view
     fun setData(list: List<Trip>?){
         this.tripList = (list as MutableList<Trip>?)!!
         submitList(list)
@@ -121,10 +126,13 @@ class TripListAdapter(val parentFragment: ViewDataFragment) :
         }
     }
 
+    //override the getFilter() function in order to implement a customFilter
     override fun getFilter(): Filter {
         return customFilter
     }
 
+    //custom filter to handle searching. This updates the current List that's sent to the recycler view
+    //based on the characters in searchView
     private val customFilter = object : Filter(){
         override fun performFiltering(constraint: CharSequence?): FilterResults {
             val filteredList = mutableListOf<Trip>()
@@ -142,6 +150,7 @@ class TripListAdapter(val parentFragment: ViewDataFragment) :
             return results
         }
 
+        //submit the filtered results to the recycler view
         override fun publishResults(constraint: CharSequence?, filterResults: FilterResults?) {
             submitList(filterResults?.values as MutableList<Trip>)
         }

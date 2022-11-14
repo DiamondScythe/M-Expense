@@ -26,6 +26,7 @@ class TripDetailFragment : Fragment() {
     private val binding get() = _binding!!
 
     lateinit var trip: Trip
+
     private val tripViewModel: TripViewModel by activityViewModels{
         TripViewModelFactory(
             //Use the database instance you created in one of the previous tasks to call the itemDao constructor.
@@ -55,6 +56,9 @@ class TripDetailFragment : Fragment() {
     }
 
     private val navigationArgs: TripDetailFragmentArgs by navArgs()
+
+    //this will be called in the expense list adapter to delete the expense at specified id
+    //(using the context menu)
     suspend fun deleteStuff(expenseId: Int){
         expenseViewModel.removeExpense(expenseId)
     }
@@ -86,6 +90,8 @@ class TripDetailFragment : Fragment() {
                 adapter.setData(it)
             }
         }
+
+        //sets the current layoutManager for the recycler view
         binding.recyclerView.layoutManager = LinearLayoutManager(this.context)
 
         binding.addExpenseButton.setOnClickListener{
@@ -104,7 +110,8 @@ class TripDetailFragment : Fragment() {
 
         //setting up menu search item
         val menuHost: MenuHost = requireActivity()
-        // Add menu items without using the Fragment Menu APIs
+
+        // Menu items are added here
         // Note how we can tie the MenuProvider to the viewLifecycleOwner
         // and an optional Lifecycle.State (here, RESUMED) to indicate when
         // the menu should be visible

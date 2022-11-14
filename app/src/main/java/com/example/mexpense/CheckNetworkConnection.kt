@@ -16,16 +16,20 @@ class CheckNetworkConnection (private val connectivityManager: ConnectivityManag
     private val networkCallback = @RequiresApi(Build.VERSION_CODES.LOLLIPOP)
 
     object : ConnectivityManager.NetworkCallback(){
+        //on network available, posts the new value true
         override fun onAvailable(network: Network) {
             super.onAvailable(network)
             postValue(true)
         }
+        //on losing connection, posts the new value false
         override fun onLost(network: Network) {
             super.onLost(network)
             postValue(false)
         }
     }
 
+    //called when the active observers change from 1 to 0
+    //this callback is used to know that the LiveData is currently being used, and it should be kept up to date
     @SuppressLint("MissingPermission")
     @RequiresApi(Build.VERSION_CODES.LOLLIPOP)
     override fun onActive() {
@@ -34,6 +38,7 @@ class CheckNetworkConnection (private val connectivityManager: ConnectivityManag
         connectivityManager.registerNetworkCallback(builder.build(),networkCallback)
     }
 
+    //called when the active observers change from 1 to 0
     @RequiresApi(Build.VERSION_CODES.LOLLIPOP)
     override fun onInactive() {
         super.onInactive()

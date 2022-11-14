@@ -27,7 +27,7 @@ class ViewDataFragment : Fragment() {
     private val binding get() = _binding!!
     private var connectionStatus = false
 
-    //Use by delegate to hand off the property initialization to the activityViewModels class. Pass in the InventoryViewModelFactory constructor.
+    //Use by delegate to hand off the property initialization to the activityViewModels class.
     private val viewModel: TripViewModel by activityViewModels {
         TripViewModelFactory(
             //Use the database instance you created in one of the previous tasks to call the itemDao constructor.
@@ -41,6 +41,8 @@ class ViewDataFragment : Fragment() {
         )
     }
 
+    //this will be used to store the reference to the data collections on the online database.
+    //Uploaded data will be stored in these references
     private val dbRefTrip = FirebaseDatabase.getInstance().getReference("Trips")
     private val dbRefExpense = FirebaseDatabase.getInstance().getReference("Expenses")
 
@@ -81,7 +83,7 @@ class ViewDataFragment : Fragment() {
 
         //setting up menu search item
         val menuHost: MenuHost = requireActivity()
-        // Add menu items without using the Fragment Menu APIs
+        // Menu items are added here
         // Note how we can tie the MenuProvider to the viewLifecycleOwner
         // and an optional Lifecycle.State (here, RESUMED) to indicate when
         // the menu should be visible
@@ -100,7 +102,7 @@ class ViewDataFragment : Fragment() {
                             return true
                         }
 
-                        //this is where we're going to implement the filter logic
+                        //this is where we're going to implement the filter logic for the search
                         override fun onQueryTextChange(newText: String?): Boolean {
                             if (newText != null) {
                                 adapter.filter.filter(newText)
@@ -126,9 +128,13 @@ class ViewDataFragment : Fragment() {
         )
     }
 
+    //after this function is called, the application will attempt to upload the data in the local database
+    //to Realtime Database on firebase
     private fun backupData() {
+        //first, checks for connection status. If the user is online, proceed.
         if (connectionStatus){
             GlobalScope.launch{
+                //get the data from the viewmodel, then upload said data to the db
                 val allTrips: List<Trip> = viewModel.retrieveStaticTrips()
                 dbRefTrip.setValue(allTrips)
 
@@ -142,6 +148,9 @@ class ViewDataFragment : Fragment() {
         }
     }
 
+    //this function helps keep track of currect network connection status. If the network connection
+    //gets turned on or off, the connectionStatus boolean will be adjusted accordingly
+    //the CheckNetworkConnection class has been put into a separate class file.
     private fun callNetworkConnection() {
         var checkNetworkConnection = CheckNetworkConnection(activity?.application as Application
         )

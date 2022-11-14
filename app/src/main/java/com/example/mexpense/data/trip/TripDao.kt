@@ -18,7 +18,6 @@ interface TripDao {
     @Query("DELETE from trip where id = :id")
     fun delete2(id: Int)
 
-    //co flow khoi xai suspend
     @Query("SELECT * from trip WHERE id = :id")
     fun getTrip(id: Int): Flow<Trip>
 

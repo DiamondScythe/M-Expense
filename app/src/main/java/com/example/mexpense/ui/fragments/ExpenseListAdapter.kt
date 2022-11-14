@@ -4,13 +4,11 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import android.widget.Filter
 import android.widget.Filterable
-import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.example.mexpense.data.expense.Expense
-import com.example.mexpense.data.trip.Trip
 import com.example.mexpense.databinding.ExpenseListItemBinding
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import kotlinx.coroutines.GlobalScope
@@ -34,6 +32,7 @@ class ExpenseListAdapter(val parentFragment: TripDetailFragment):
         }
     }
 
+    //the ListAdapter will use diffcallback to figure out what changed in the list.
     companion object {
         private val DiffCallback = object : DiffUtil.ItemCallback<Expense>() {
             override fun areItemsTheSame(oldItem: Expense, newItem: Expense): Boolean {
@@ -60,9 +59,13 @@ class ExpenseListAdapter(val parentFragment: TripDetailFragment):
     override fun onBindViewHolder(holder: ExpenseViewHolder, position: Int) {
         val current = getItem(position)
         val expenseId = current.expenseId
+
+        //sets onclick event for the current viewholder
         holder.itemView.setOnClickListener{
             onItemClicked(expenseId)
         }
+
+        //sets up the long-press context menu for this view holder.
         holder.itemView.setOnCreateContextMenuListener { contextMenu, _, _ ->
             contextMenu.add("View details").setOnMenuItemClickListener {
                 onItemClicked(expenseId)
@@ -80,6 +83,12 @@ class ExpenseListAdapter(val parentFragment: TripDetailFragment):
         holder.bind(current)
     }
 
+    private fun onItemClicked(expenseId: Int){
+        val action = TripDetailFragmentDirections.actionTripDetailFragmentToExpenseDetailFragment(expenseId)
+        parentFragment.findNavController().navigate(action)
+    }
+
+    //confirm dialog before deletino
     private fun showConfirmDialog(expenseId: Int) {
         MaterialAlertDialogBuilder(parentFragment.requireContext())
             .setTitle("Expense deletion")
@@ -106,20 +115,19 @@ class ExpenseListAdapter(val parentFragment: TripDetailFragment):
         parentFragment.findNavController().navigate(action)
     }
 
+    //used in TripDetailFragment to set the data to the recycler view
     fun setData(list: List<Expense>?){
         this.expenseList = (list as MutableList<Expense>?)!!
         submitList(list)
     }
 
+    //overriding getFilter() to create a custom filter (for search)
     override fun getFilter(): Filter {
         return customFilter
     }
 
-    private fun onItemClicked(expenseId: Int){
-        val action = TripDetailFragmentDirections.actionTripDetailFragmentToExpenseDetailFragment(expenseId)
-        parentFragment.findNavController().navigate(action)
-    }
-
+    //the custom filter used to filter the current expense list using the characters in the searchView
+    //returns a filterList of type FilterResults
     private val customFilter = object : Filter(){
         override fun performFiltering(constraint: CharSequence?): FilterResults {
             val filteredList = mutableListOf<Expense>()
@@ -137,6 +145,7 @@ class ExpenseListAdapter(val parentFragment: TripDetailFragment):
             return results
         }
 
+        //after results are returned, it will be submitted to the recycler view
         override fun publishResults(constraint: CharSequence?, filterResults: FilterResults?) {
             submitList(filterResults?.values as MutableList<Expense>)
         }

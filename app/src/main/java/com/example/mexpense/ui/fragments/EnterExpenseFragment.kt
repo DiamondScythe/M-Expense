@@ -1,6 +1,5 @@
 package com.example.mexpense.ui.fragments
 
-import android.app.Activity
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -8,7 +7,6 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.AdapterView
 import android.widget.ArrayAdapter
-import android.widget.Spinner
 import android.widget.Toast
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
@@ -19,7 +17,6 @@ import com.example.mexpense.data.ExpenseViewModel
 import com.example.mexpense.data.ExpenseViewModelFactory
 import com.example.mexpense.data.expense.Expense
 import com.example.mexpense.databinding.FragmentEnterExpenseBinding
-import kotlinx.coroutines.NonDisposableHandle.parent
 
 //var used to keep track of the currentExpenseType of the spinner
 var currentExpenseType: String = ""
@@ -45,6 +42,7 @@ class EnterExpenseFragment : Fragment(), AdapterView.OnItemSelectedListener {
         return binding.root
     }
 
+    //checks for the validity of the entry
     private fun isEntryValid(): Boolean {
         return viewModel.isEntryValid(
             binding.expenseName.text.toString(),
@@ -55,6 +53,7 @@ class EnterExpenseFragment : Fragment(), AdapterView.OnItemSelectedListener {
     }
 
     private fun addNewItem() {
+        //checks for valid entry
         if (isEntryValid()) {
             viewModel.addNewExpense(
                 binding.expenseName.text.toString(),
@@ -67,6 +66,7 @@ class EnterExpenseFragment : Fragment(), AdapterView.OnItemSelectedListener {
             val action = EnterExpenseFragmentDirections.actionEnterExpenseFragmentToTripDetailFragment(navigationArgs.tripId)
             findNavController().navigate(action)
         }
+        //if entry isn't valid, toast an error message
         else{
             Toast.makeText(requireContext(), "Please fill in all the required fields.", Toast.LENGTH_SHORT).show()
         }
@@ -94,11 +94,11 @@ class EnterExpenseFragment : Fragment(), AdapterView.OnItemSelectedListener {
         }
     }
 
+    //handles item select event for spinner
     override fun onItemSelected(parent: AdapterView<*>, view: View?, pos: Int, id: Long) {
         currentExpenseType = parent.getItemAtPosition(pos).toString()
     }
 
     override fun onNothingSelected(p0: AdapterView<*>?) {
-        TODO("Not yet implemented")
     }
 }

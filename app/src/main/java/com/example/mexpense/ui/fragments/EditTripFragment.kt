@@ -47,10 +47,13 @@ class EditTripFragment : Fragment() {
             (activity?.application as MExpenseApplication).database.tripDao()
         )
     }
+
+    //sets default value for var of trip risk assessment. This var can be manipulated using the checkbox
     private var tripRisk: String = "No"
 
     private val navigationArgs: EditTripFragmentArgs by navArgs()
 
+    //checkbox click handle function
     private fun onCheckboxClicked(view: View) {
         if (view is CheckBox) {
             val checked: Boolean = view.isChecked
@@ -87,6 +90,7 @@ class EditTripFragment : Fragment() {
     }
 
     private fun updateItem(id: Int) {
+        //checks if entry is valid
         if (isEntryValid()) {
             viewModel.updateWithNewTrip(
                 id,
@@ -108,6 +112,7 @@ class EditTripFragment : Fragment() {
             }
 
         }
+        //if entry isn't valid, toast an error message
         else{
             Toast.makeText(requireContext(), "Please fill in all the required fields.", Toast.LENGTH_SHORT).show()
         }
@@ -118,12 +123,13 @@ class EditTripFragment : Fragment() {
 
         //init provider client
         fusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(requireContext())
-        setCoordinates()
+        updateCoordinates()
 
         val id = navigationArgs.tripId
 
         val trip = viewModel.retrieveStaticTrip(id)
 
+        //checks the checkbox if the current expense's risk assessment equals yes
         if (trip.tripRiskAssessment.equals("Yes",true)){
             binding.riskCheckBox.isChecked = true
         }
@@ -144,7 +150,7 @@ class EditTripFragment : Fragment() {
                 onCheckboxClicked(view)
             }
             binding.getLocationButton.setOnClickListener {
-                setCoordinates()
+                updateCoordinates()
                 getUserLocation()
             }
         }
@@ -194,7 +200,8 @@ class EditTripFragment : Fragment() {
     }
 
 
-    private fun setCoordinates() {
+    //updates the values for lat and long
+    private fun updateCoordinates() {
         val priority = LocationRequest.PRIORITY_BALANCED_POWER_ACCURACY
         val cancellationTokenSource = CancellationTokenSource()
 

@@ -14,7 +14,6 @@ import com.example.mexpense.TripViewModelFactory
 import com.example.mexpense.data.ExpenseViewModel
 import com.example.mexpense.data.expense.Expense
 import com.example.mexpense.databinding.FragmentExpenseDetailBinding
-import com.example.mexpense.databinding.FragmentTripDetailBinding
 
 class ExpenseDetailFragment : Fragment() {
 
@@ -30,6 +29,7 @@ class ExpenseDetailFragment : Fragment() {
         )
     }
 
+    //bind the current expense object to the views
     private fun bind(expense: Expense){
         binding.apply{
             textViewName.text = expense.expenseName
@@ -37,6 +37,7 @@ class ExpenseDetailFragment : Fragment() {
             textViewType.text = expense.expenseType
             textViewAmount.text = expense.expenseAmount.toString()
         }
+        //if expense details is empty, set the textview to let the user know
         if (expense.expenseDetails.isEmpty())
         {
             binding.textViewDetails.setTextColor(resources.getColor(R.color.dark_gray))
@@ -59,11 +60,15 @@ class ExpenseDetailFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         val id = navigationArgs.expenseId
+
+        //observe the expense object, then bind it to the view
         expenseViewModel.retrieveExpense(id).observe(this.viewLifecycleOwner){ selectedExpense ->
             expense = selectedExpense
             bind(expense)
         }
         binding.editButton.setOnClickListener {
+            //the previousFragment param is used to let the edit fragment know which fragment to go back to
+            //after operations are finished
             val action = ExpenseDetailFragmentDirections.actionExpenseDetailFragmentToEditExpenseFragment(
                 navigationArgs.expenseId, "ExpenseDetailFragment")
             this.findNavController().navigate(action)

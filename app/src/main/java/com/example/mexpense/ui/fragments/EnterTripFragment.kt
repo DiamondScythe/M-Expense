@@ -48,8 +48,11 @@ class EnterTripFragment : Fragment() {
         )
     }
     lateinit var trip: Trip
+
+    //init tripRisk var. This can be manipulated by using checkbox check event handler
     private var tripRisk: String = "No"
 
+    //handles checkbox event
     private fun onCheckboxClicked(view: View) {
         if (view is CheckBox) {
             val checked: Boolean = view.isChecked
@@ -74,6 +77,7 @@ class EnterTripFragment : Fragment() {
         return binding.root
     }
 
+    //checks for entry validity
     private fun isEntryValid(): Boolean {
         return viewModel.isEntryValid(
             binding.tripName.text.toString(),
@@ -84,6 +88,7 @@ class EnterTripFragment : Fragment() {
     }
 
     private fun addNewItem() {
+        //checks if entry is valid
         if (isEntryValid()) {
             val action = EnterTripFragmentDirections.actionEnterTripFragmentToConfirmTripFragment(
                 binding.tripName.text.toString(),
@@ -94,6 +99,7 @@ class EnterTripFragment : Fragment() {
             )
             findNavController().navigate(action)
         }
+        //if entry isn't valid, toast an error message
         else{
             Toast.makeText(requireContext(), "Please fill in all the required fields.", Toast.LENGTH_SHORT).show()
         }
@@ -104,7 +110,7 @@ class EnterTripFragment : Fragment() {
 
         //init provider client
         fusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(requireContext())
-        setCoordinates()
+        updateCoordinates()
 
         binding.apply {
             binding.ButtonEnter.setOnClickListener {
@@ -115,7 +121,7 @@ class EnterTripFragment : Fragment() {
                 onCheckboxClicked(view)
             }
             binding.getLocationButton.setOnClickListener {
-                setCoordinates()
+                updateCoordinates()
                 getUserLocation()
             }
         }
@@ -164,8 +170,8 @@ class EnterTripFragment : Fragment() {
         }
     }
 
-
-    private fun setCoordinates() {
+    //updates the current corrdinates (lat and long)
+    private fun updateCoordinates() {
         val priority = LocationRequest.PRIORITY_BALANCED_POWER_ACCURACY
         val cancellationTokenSource = CancellationTokenSource()
 
